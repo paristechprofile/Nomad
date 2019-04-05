@@ -1,0 +1,46 @@
+{% extends "layout.html" %} 
+
+{% block content %}
+
+<h2>Edit Parkers</h2>
+<div class='column1' >
+    <form  method="POST" action="" novalidate>
+      {{ form.hidden_tag() }} 
+      <div class="field">
+      {{ form.name.label(class_="label")}}
+      {{ form.name(class_="input", placeholder=parker.name, id="parkerName")}}
+      </div>
+      <div class="field">
+      {{ form.email.label(class_="label") }}
+      {{ form.email(class_="input", placeholder=parker.email, id="parkerEmail")}}
+      </div>
+      <div class="field">
+      {{ form.make.label(class_="label") }}
+      {{ form.make(class_="input", placeholder=parker.make, id="parkerMake")}}
+      </div>
+      <div class="field">
+      {{ form.year.label(class_="label") }}
+      {{ form.year(class_="input", placeholder=parker.year, id="parkerYear")}}
+      </div>
+      <div class="field">
+      {{ form.model.label(class_="label") }}
+      {{ form.model(class_="input", placeholder=parker.model, id="parkerModel")}}
+      </div>
+      <div class="field">
+      {{ form.color.label(class_="label") }}
+      {{ form.color(class_="input", placeholder=parker.color, id="parkerColor")}}
+      </div>
+      <div class="field">
+      {{ form.license_plate.label(class_="label") }}
+      {{ form.license_plate(class_="input", placeholder=parker.license_plate, id="parkerLicensePlate")}}
+      </div>
+      <div class="field">
+      {{ form.license_state.label(class_="label") }}
+      {{ form.license_state(class_="input", placeholder=parker.license_state, id="parkerLicenseState")}}
+      </div>
+      <div class="field">
+      {{ form.submit(class_="button") }}
+      </div>
+    </form>
+  </div>
+{% endblock %}

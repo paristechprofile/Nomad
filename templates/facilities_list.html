@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% if current_user.is_admin %}
+<div class="">
+  <div class="right floated">
+    <a class="item" href="{{url_for('new_facility')}}" title="New Space">Add Facility</a>
+    </div>
+</div>
+<table class="ui selectable inverted table">
+    <thead>
+      <tr>
+        <th>Facility Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        {#<th>Contact</th>#}
+        <!-- <th>Action</th> -->
+        <th class="right aligned">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for facility in facilities %}
+      <tr>
+        <td>{{facility.id}}</td>
+        <td>{{facility.name}}</td>
+        <td>{{facility.email}}</td>
+        <td>{{facility.address}}</td>
+        {#<td>{{facility.contact}}</td>#}
+        
+        <td class="right aligned"><div><a class="item" href="{{url_for('edit_facility', id=facility.id)}}" title="Edit Facility">EDIT</a></div><div><a class="item" href="{{url_for('delete_facility', id=facility.id)}}" title="Delete Facility">DELETE</a></div></td>
+        
+      </tr>
+      {% endfor %} 
+    </tbody>
+  </table>
+  {% else %}
+    <table class="ui selectable inverted table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <!-- <th>Action</th> -->
+            <th class="right aligned">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for facility in facilities %}
+          <tr>
+            <td>{{facility.name}}</td>
+            <td>{{facility.address}}</td>
+            <td class="right aligned">None</td>
+          </tr>
+          {% endfor %} 
+        </tbody>
+      </table>
+  {% endif %}
+{% endblock %}

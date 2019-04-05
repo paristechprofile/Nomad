@@ -1,0 +1,78 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <!-- <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="/static/style.css"> -->
+
+  <!-- semantic CSS -->
+
+  <link rel="stylesheet" type="text/css" href="{{
+    url_for('static', filename='semantic/dist/semantic.min.css') }}">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <div class="ui inverted menu">
+      <div class="header item">
+        <a class="nav-link" href="{{url_for('index')}}" title="Fresh">Nomad</a>
+      </div>
+      
+      <div class="ui dropdown item" tabindex="0">
+        Dropdown
+        <i class="dropdown icon"></i>
+        <div class="menu" tabindex="-1">
+          {% if g.user.is_admin %}
+          <a class="nav-link item" href="{{url_for('teams')}}" title="Teams">Teams</a>
+          <a class="nav-link item" href="{{url_for('parkers')}}" title="Parkers">Parkers</a>
+          <a class="nav-link item" href="{{url_for('vehicles')}}" title="Vehicles">Vehicles</a>
+          <a class="nav-link item" href="{{url_for('facilities')}}" title="Parking Facilities">Parking Facilities</a>
+          <div class="divider"></div>
+          <a class="nav-link item" href="https://dashboard.stripe.com/invoices" title="Invoices">Invoices</a>
+          {% else %}
+          <a class="nav-link item" href="{{url_for('parkers')}}" title="Parkers">Parkers</a>
+          <a class="nav-link item" href="{{url_for('vehicles')}}" title="Vehicles">Vehicles</a>
+          <a class="nav-link item" href="{{url_for('facilities')}}" title="Parking Facilities">Parking Facilities</a>
+          <div class="divider"></div>
+          <a class="nav-link item" href="https://dashboard.stripe.com/invoices" title="Invoices">Invoices</a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="right menu">
+        {% if current_user.is_authenticated %}
+        <div class="item">
+          <a class="nav-link" href="{{url_for('logout')}}" title="logout"><div class="ui primary button" title="logout">Log Out
+          </div></a>
+        </div>
+      </div>
+        {% else %}
+        <div class="item">
+          <a class="nav-link" href="{{url_for('login')}}" title="login"><div class="ui primary button" title="login">Login
+          </div></a>
+        </div>
+        <div class="item">
+          <a class="nav-link" href="{{url_for('signup')}}" title="signup"><div class="ui primary button" title="signup">Sign Up
+          </div></a>
+        </div>
+        </div>  
+        {% endif %}
+      </div>
+    <!-- <div row>
+      <div class="col"> -->
+      {% block content %}{% endblock %} 
+      </div>
+    </div>
+    <footer>
+      
+    </footer>
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='semantic/dist/semantic.min.js') }}"></script>
+    <script>$('.ui.dropdown').dropdown();</script>
+
+</body>
+</html>

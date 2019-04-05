@@ -1,0 +1,34 @@
+{% extends "layout.html" %} 
+
+{% block content %}
+
+<h2>Edit Facility</h2>
+<div class='column1' >
+    <form  method="POST" action="" novalidate>
+      {{ form.hidden_tag() }} 
+      <div class="field">
+      {{ form.name.label(class_="label")}}
+      {{ form.name(class_="input", placeholder=facility.name, id="facilityName")}}
+      </div>
+      <div class="field">
+      {{ form.email.label(class_="label") }}
+      {{ form.email(class_="input", placeholder=facility.email, id="facilityEmail")}}
+      </div>
+      <div class="field">
+      {{ form.address.label(class_="label") }}
+      {{ form.address(class_="input", placeholder=facility.address, id="facilityAddress")}}
+      </div>
+      <div class="field">
+      {{ form.lat.label(class_="label") }}
+      {{ form.lat(class_="input", placeholder=facility.lat, id="facilityLat")}}
+      </div>
+      <div class="field">
+      {{ form.long.label(class_="label") }}
+      {{ form.long(class_="input", placeholder=facility.long, id="facilityLong")}}
+      </div>
+      <div class="field">
+      {{ form.submit(class_="button") }}
+      </div>
+    </form>
+  </div>
+{% endblock %}

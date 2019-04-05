@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% if current_user.is_admin %}
+<div class="">
+  <div class="right floated">
+    </div>
+</div>
+<table class="ui selectable inverted table">
+    <thead>
+      <tr>
+        <th>Vehicle Id</th>
+        <th>Parker Id</th>
+        <th>Year</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Color</th>
+        <th>License Plate</th>
+        <th>License State</th>
+        <!-- <th>Parker</th> -->
+        
+        <!-- <th>Action</th> -->
+        <th class="right aligned">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vehicle in vehicles %}
+      <tr>
+        
+        <td>{{vehicle.id}}</td>
+        <td>{{vehicle}}</td>
+        <td>{{vehicle.year}}</td>
+        <td>{{vehicle.make}}</td>
+        <td>{{vehicle.model}}</td>
+        <td>{{vehicle.Color}}</td>
+        <td>{{vehicle.license_plate}}</td>
+        <td>{{vehicle.license_state}}</td>
+        {#<!-- <td>{{vehicle.parker_id}}</td> -->#}
+        <td class="right aligned"><div><a class="item" href="#" title="New Vehicle">EDIT</a></div><div></div><a class="item" href="#" title="New Vehicle">DELETE</a></div></td>
+      </tr>
+      {% endfor %} 
+    </tbody>
+  </table>
+  {% else %}
+  <div class="">
+      <div class="right floated">
+        <a class="item" href="{{url_for('new_vehicle')}}" title="New Vehicle">Add Vehicles</a>
+        </div>
+    </div>
+    <table class="ui selectable inverted table">
+        <thead>
+          <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>License Plate</th>
+            <!-- <th>Action</th> -->
+            <th class="right aligned">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for vehicle in vehicles %}
+          <tr>
+            <td>{{vehicle.make}}</td>
+            <td>{{vehicle.model}}</td>
+            <td>{{vehicle.license_plate}}</td>
+            <td class="right aligned">None</td>
+          </tr>
+          {% endfor %} 
+        </tbody>
+      </table>
+  {% endif %}
+{% endblock %}
