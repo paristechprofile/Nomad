@@ -28,7 +28,7 @@
       <tr>
         
         <td>{{vehicle.id}}</td>
-        <td>{{vehicle}}</td>
+        <td>{{vehicle.parker_id}}</td>
         <td>{{vehicle.year}}</td>
         <td>{{vehicle.make}}</td>
         <td>{{vehicle.model}}</td>
@@ -49,9 +49,14 @@
     <table class="ui selectable inverted table">
         <thead>
           <tr>
+            <th>Vehicle Id</th>
+            <th>Parker Id</th>
+            <th>Year</th>
             <th>Make</th>
             <th>Model</th>
+            <th>Color</th>
             <th>License Plate</th>
+            <th>License State</th>
             <!-- <th>Action</th> -->
             <th class="right aligned">Actions</th>
           </tr>
@@ -59,9 +64,14 @@
         <tbody>
           {% for vehicle in vehicles %}
           <tr>
+            <td>{{vehicle.id}}</td>
+            <td>{{vehicle.parker_id}}</td>
+            <td>{{vehicle.year}}</td>
             <td>{{vehicle.make}}</td>
             <td>{{vehicle.model}}</td>
+            <td>{{vehicle.Color}}</td>
             <td>{{vehicle.license_plate}}</td>
+            <td>{{vehicle.license_state}}</td>
             <td class="right aligned"><div><a class="item" href="{{url_for('edit_vehicles', id=vehicle.id)}}" title="Edit Vehicle">EDIT</a></div><div></div><a class="item" href="{{url_for('delete_vehicle', id=vehicle.id)}}" title="Delete Vehicle">DELETE</a></div></td></td>
           </tr>
           {% endfor %} 

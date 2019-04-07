@@ -241,8 +241,10 @@ def edit_parkers(id):
 def delete_parker(id):
   if current_user.is_admin: 
     parker_param = int(id)
-    parker = models.Parker.get_or_none(parker_param)
+    parker = models.Parker.get(models.Parker.id == parker_param)
+    vehicle = models.Vehicle.get(models.Vehicle.parker_id == parker_param)
     if str(parker.id) == str(parker_param):
+      vehicle.delete_instance()
       parker.delete_instance()
       flash('you deleted the parker')
       return redirect(url_for('parkers'))
@@ -271,12 +273,13 @@ def vehicles(id=None):
 @login_required
 def add_vehicle(id):
   form = forms.New_Vehicle_Form()
+  team = current_user.team_id
   parker_param = int(id)
   parker = models.Parker.get_or_none(parker_param)
-  vehicle = models.Vehicle.get_or_none()
+  vehicle = models.Vehicle.get_or_none(parker_param)
   if form.validate_on_submit():
     models.Vehicle.create(
-      parker_id=parker_param,
+      parker_id=id,
       make=form.make.data.strip(), 
       year=form.year.data.strip(),
       model=form.model.data.strip(),
