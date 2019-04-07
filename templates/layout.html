@@ -11,7 +11,8 @@
 
   <link rel="stylesheet" type="text/css" href="{{
     url_for('static', filename='semantic/dist/semantic.min.css') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{
+      url_for('static', filename='css/style.css') }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -72,6 +73,7 @@
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='semantic/dist/semantic.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
     <script>$('.ui.dropdown').dropdown();</script>
 
 </body>
