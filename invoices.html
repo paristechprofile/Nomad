@@ -28,7 +28,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for parker in parkers %}
+      {% for invoice in invoices %}
       <tr>
         <td>{{parker.id}}</td>
         <td>{{parker.name}}</td>
@@ -50,7 +50,6 @@
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th class="right aligned">Add Vehicle</th>
             <th class="right aligned">Actions</th>
           </tr>
         </thead>
@@ -60,10 +59,7 @@
             <td>{{parker.name}}</td>
             <td>{{parker.email}}</td>
             <!-- <td>Approved</td> -->
-        <td class="right aligned"><a class="item" href="{{url_for('add_vehicle', id=parker.id)}}" title="Add Vehicle">Add Vehicle</a>
         <td class="right aligned"><div><a class="item" href="{{url_for('edit_parkers', id=parker.id)}}" title="Edit Parker">EDIT</a></div><div></div><a class="item" href="{{url_for('delete_parker', id=parker.id)}}" title="Delete Parker">DELETE</a></div></td></td>
-        
-        </td>
           </tr>
           {% endfor %} 
         </tbody>

@@ -1,58 +1,39 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} 
 
 {% block content %}
-{% if current_user.is_admin %}
-<div class="">
-  <div class="right floated">
-    </div>
-</div>
-<table class="ui selectable inverted table">
-    <thead>
-      <tr>
-        <th>Make</th>
-        <th>Model</th>
-        <th>License Plate</th>
-        <!-- <th>Action</th> -->
-        <th class="right aligned">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for vehicle in vehicles %}
-      <tr>
-        <td>{{vehicle.make}}</td>
-        <td>{{vehicle.model}}</td>
-        <td>{{vehicle.license_plate}}</td>
-        <td class="right aligned"><div><a class="item" href="#" title="New Vehicle">EDIT</a></div><div></div><a class="item" href="#" title="New Vehicle">DELETE</a></div></td>
-      </tr>
-      {% endfor %} 
-    </tbody>
-  </table>
-  {% else %}
-  <div class="">
-      <div class="right floated">
-        <a class="item" href="{{url_for('new_vehicle')}}" title="New Vehicle">Add Vehicles</a>
-        </div>
-    </div>
-    <table class="ui selectable inverted table">
-        <thead>
-          <tr>
-            <th>Make</th>
-            <th>Model</th>
-            <th>License Plate</th>
-            <!-- <th>Action</th> -->
-            <th class="right aligned">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for vehicle in vehicles %}
-          <tr>
-            <td>{{vehicle.make}}</td>
-            <td>{{vehicle.model}}</td>
-            <td>{{vehicle.license_plate}}</td>
-            <td class="right aligned">None</td>
-          </tr>
-          {% endfor %} 
-        </tbody>
-      </table>
-  {% endif %}
+
+<h2>Edit Parkers</h2>
+
+<div class='column1' >
+    <form  method="POST" action="" novalidate>
+      {{ form.hidden_tag() }} 
+      <div class="field">
+      {{ form.make.label(class_="label") }}
+      {{ form.make(class_="input", placeholder=vehicle.make, id="parkerMake")}}
+      </div>
+      <div class="field">
+      {{ form.year.label(class_="label") }}
+      {{ form.year(class_="input", placeholder=vehicle.year, id="parkerYear")}}
+      </div>
+      <div class="field">
+      {{ form.model.label(class_="label") }}
+      {{ form.model(class_="input", placeholder=vehicle.model, id="parkerModel")}}
+      </div>
+      <div class="field">
+      {{ form.color.label(class_="label") }}
+      {{ form.color(class_="input", placeholder=vehicle.color, id="parkerColor")}}
+      </div>
+      <div class="field">
+      {{ form.license_plate.label(class_="label") }}
+      {{ form.license_plate(class_="input", placeholder=vehicle.license_plate, id="parkerLicensePlate")}}
+      </div>
+      <div class="field">
+      {{ form.license_state.label(class_="label") }}
+      {{ form.license_state(class_="input", placeholder=vehicle.license_state, id="parkerLicenseState")}}
+      </div>
+      <div class="field">
+      {{ form.submit(class_="button") }}
+      </div>
+    </form>
+  </div>
 {% endblock %}

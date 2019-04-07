@@ -7,8 +7,8 @@ from flask_bcrypt import generate_password_hash
 from flask import g
 
 # DATABASE = connect(os.environ.get('DATABASE_URL'))
-# DATABASE = PostgresqlDatabase('fresh') #local postgres backup
-DATABASE = SqliteDatabase('nomad.db') #local sqlitebackup if postgres is buggy
+DATABASE = PostgresqlDatabase('nomad') #local postgres backup
+# DATABASE = SqliteDatabase('nomad.db') #local sqlitebackup if postgres is buggy
 
 class Team(Model):
   name = CharField(unique=True)

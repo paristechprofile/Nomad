@@ -87,7 +87,8 @@ class New_Vehicle_Form(Form):
   color = StringField('Color')
   license_plate = StringField('License Plate')
   license_state = StringField('License State')
-
+  submit = SubmitField('Save')
+  
 class New_Facility_Form(Form):
   name = StringField('Name')
   email = StringField('Email') 

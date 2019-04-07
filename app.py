@@ -50,9 +50,9 @@ def after_request(res):
 
 @app.route('/')
 def index():
-  # stream = models.Post.select().limit(100)
   return render_template('home.html')
 
+# Authentication
 @app.route('/admin')
 @basic_auth.required
 def secret_view():
@@ -95,6 +95,7 @@ def logout():
   flash("You've been logged out", "success")
   return redirect(url_for('index'))
 
+# Team views
 @app.route('/teams')
 @login_required
 def teams(id=None):
@@ -149,7 +150,8 @@ def new_team():
       )
       return redirect(url_for('teams'))
   return render_template('teams_new_team.html', form=form)
-  
+
+# Parker views
 @app.route('/parkers')
 @login_required
 def parkers():
@@ -157,7 +159,7 @@ def parkers():
     parkers = models.Parker.select().limit(100)
     return render_template('parkers_list.html', parkers=parkers)
   else: 
-    parkers = models.Parker.select().limit(100)
+    parkers = models.Parker.select().where(current_user.team_id.id == models.Parker.team_id)
     return render_template('parkers_list.html', parkers=parkers)
 
 @app.route('/new_parker', methods=['GET', 'POST'])
@@ -170,10 +172,12 @@ def new_parker():
       models.Parker.create(
         team_id=current_user.team_id,
         name=form.name.data.strip(), 
-        email=form.email.data.strip()
+        email=form.email.data.strip(),
+        user_id=current_user.id,
         )
+      parker_id = models.Parker.select().order_by(models.Parker.id.desc()).get()
       models.Vehicle.create(
-        parker_id='99',
+        parker_id=parker_id.id,
         make = form.make.data.strip(),
         year = form.year.data.strip(),
         model = form.model.data.strip(),
@@ -181,18 +185,21 @@ def new_parker():
         license_plate=form.license_plate.data.strip(),
         license_state=form.license_state.data.strip()
       )
-      breakpoint()
+      flash('You added a new parker')
       return redirect(url_for('parkers'))
+    else:
+      return render_template('parkers_new_parker.html', form=form)
   else:
     if form.validate_on_submit():
       models.Parker.create(
         team_id=current_user.team_id,
+        user_id=current_user.id,
         name=form.name.data.strip(), 
-        email=form.email.data.strip(),
-        )
-      
+        email=form.email.data.strip()
+      )
+      parker_id = models.Parker.select().order_by(models.Parker.id.desc()).get()
       models.Vehicle.create(
-        parker_id='99',
+        parker_id=parker_id.id,
         make = form.make.data.strip(),
         year = form.year.data.strip(),
         model = form.model.data.strip(),
@@ -200,8 +207,10 @@ def new_parker():
         license_plate=form.license_plate.data.strip(),
         license_state=form.license_state.data.strip()
       )
-    return redirect(url_for('parkers'))
-  return render_template('parkers_new_parker.html', form=form)
+      flash('You added a new parker')
+      return redirect(url_for('parkers'))
+    else:
+      return render_template('parkers_new_parker.html', form=form)
 
 @app.route('/parkers/<id>/', methods=['GET', 'POST'])
 @login_required
@@ -209,17 +218,48 @@ def edit_parkers(id):
   form = forms.Edit_Parker_Form()
   parker_param = int(id)
   parker = models.Parker.get(models.Parker.id == parker_param)
+  vehicle = models.Vehicle.get(models.Vehicle.parker_id == parker_param)
   if form.validate_on_submit():
     parker.name = form.name.data
     parker.email = form.email.data
+    vehicle.make = form.make.data
+    vehicle.year = form.year.data
+    vehicle.model = form.model.data
+    vehicle.color = form.color.data
+    vehicle.license_plate = form.license_plate.data
+    vehicle.license_state = form.license_state.data
+    vehicle.save()
     parker.save()
     flash('you saved the edited parker')
     return redirect(url_for('parkers'))
   else: 
     flash('Testing this parker flash')
-    return render_template("parkers_edit.html", parker=parker,form=form)
+    return render_template("parkers_edit.html", parker=parker, vehicle=vehicle, form=form)
 
+@app.route('/parkers/<id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_parker(id):
+  if current_user.is_admin: 
+    parker_param = int(id)
+    parker = models.Parker.get_or_none(parker_param)
+    if str(parker.id) == str(parker_param):
+      parker.delete_instance()
+      flash('you deleted the parker')
+      return redirect(url_for('parkers'))
+    else: 
+      flash('We cannot delete the parker')
+  else:
+    parker_param = int(id)
+    parker = models.Parker.get_or_none(parker_param)
+    if str(parker.id) == str(parker_param):
+      parker.delete_instance()
+      flash('you deleted the parker')
+      return redirect(url_for('parkers'))
+    else: 
+      flash('We cannot delete the parker')
+  return redirect(url_for('parkers'))
 
+# Vehicle views
 @app.route('/vehicles')
 @login_required
 def vehicles(id=None):
@@ -227,14 +267,16 @@ def vehicles(id=None):
     vehicles = models.Vehicle.select().limit(100)
   return render_template('vehicles_list.html', vehicles=vehicles)
 
-@app.route('/new_vehicle',methods=['GET', 'POST'])
+@app.route('/parkers/<id>/add_vehicle',methods=['GET', 'POST'])
 @login_required
-def new_vehicle():
+def add_vehicle(id):
   form = forms.New_Vehicle_Form()
+  parker_param = int(id)
+  parker = models.Parker.get_or_none(parker_param)
+  vehicle = models.Vehicle.get_or_none()
   if form.validate_on_submit():
     models.Vehicle.create(
-      # facility_id=
-      # parker_id=
+      parker_id=parker_param,
       make=form.make.data.strip(), 
       year=form.year.data.strip(),
       model=form.model.data.strip(),
@@ -242,9 +284,52 @@ def new_vehicle():
       license_plate=form.license_plate.data.strip(),
       license_state=form.license_state.data.strip(),
       )
-    return redirect(url_for('vehicles'))
-  return render_template('vehicles_new_vehicle.html', form=form)
+    return redirect(url_for('parkers'))
+  return render_template('vehicles_new_vehicle.html', vehicle=vehicle, parker=parker, form=form)
 
+@app.route('/vehicles/<id>/', methods=['GET', 'POST'])
+@login_required
+def edit_vehicles(id):
+  form = forms.New_Vehicle_Form()
+  vehicle_param = int(id)
+  vehicle = models.Vehicle.get(models.Vehicle.id == vehicle_param)
+  if form.validate_on_submit():
+    vehicle.make = form.make.data
+    vehicle.year = form.year.data
+    vehicle.model = form.model.data
+    vehicle.color = form.color.data
+    vehicle.license_plate = form.license_plate.data
+    vehicle.license_state = form.license_state.data
+    vehicle.save()
+    flash('you saved the edited vehicle')
+    return redirect(url_for('vehicles'))
+  else: 
+    flash('Testing this vehicle flash')
+    return render_template("vehicles_edit.html", vehicle=vehicle, form=form)
+
+@app.route('/vehicles/<id>/delete', methods=['GET', 'POST'])
+@login_required
+def delete_vehicle(id):
+  if current_user.is_admin: 
+    vehicle_param = int(id)
+    vehicle = models.Vehicle.get_or_none(vehicle_param)
+    if str(vehicle.id) == str(vehicle_param):
+      vehicle.delete_instance()
+      flash('you deleted the vehicle')
+      return redirect(url_for('vehicles'))
+    else: 
+      flash('We cannot delete the vehicle')
+  else:
+    vehicle_param = int(id)
+    vehicle = models.Vehicle.get_or_none(vehicle_param)
+    if str(vehicle.id) == str(vehicle_param):
+      vehicle.delete_instance()
+      flash('you deleted the vehicle')
+      return redirect(url_for('vehicles'))
+    else: 
+      flash('We cannot delete the vehicle')
+  return redirect(url_for('vehicles'))
+  
 @app.route('/space')
 @login_required
 def facilities(id=None):
@@ -252,55 +337,58 @@ def facilities(id=None):
     facilities = models.Facility.select().limit(100)
   return render_template('facilities_list.html', facilities=facilities)
 
+# Facility views
 @app.route('/space/<id>/', methods=['GET', 'POST'])
 @login_required
 def edit_facility(id):
-  form = forms.Admin_Edit_Facility_Form()
-  facility_param = int(id)
-  facility = models.Facility.get(models.Facility.id == facility_param)
-  if form.validate_on_submit():
-    facility.name = form.name.data
-    facility.email = form.email.data
-    facility.address = form.address.data
-    facility.lat = form.lat.data
-    facility.long = form.name.data
-    facility.save()
-    flash('you saved the edited facility')
-    return redirect(url_for('facilities'))
-  else: 
-    flash('Testing this edit_facility flash')
-    return render_template("facilities_edit.html", facility=facility,form=form)
+  if current_user.is_admin: 
+    form = forms.Admin_Edit_Facility_Form()
+    facility_param = int(id)
+    facility = models.Facility.get(models.Facility.id == facility_param)
+    if form.validate_on_submit():
+      facility.name = form.name.data
+      facility.email = form.email.data
+      facility.address = form.address.data
+      facility.lat = form.lat.data
+      facility.long = form.name.data
+      facility.save()
+      flash('you saved the edited facility')
+      return redirect(url_for('facilities'))
+    else: 
+      flash('Testing this edit_facility flash')
+      return render_template("facilities_edit.html", facility=facility,form=form)
 
 @app.route('/space/<id>/delete', methods=['GET', 'POST'])
 @login_required
 def delete_facility(id):
-  facility_param = int(id)
-  facility = models.Facility.get_or_none(facility_param)
-  if str(facility.id) == str(facility_param):
-    facility.delete_instance()
-    flash('you deleted the facility')
-    return redirect(url_for('facilities'))
-  else: 
-    flash('We cannot delete the facility flash')
-    return redirect(url_for('facilities'))
+  if current_user.is_admin: 
+    facility_param = int(id)
+    facility = models.Facility.get_or_none(facility_param)
+    if str(facility.id) == str(facility_param):
+      facility.delete_instance()
+      flash('you deleted the facility')
+      return redirect(url_for('facilities'))
+    else: 
+      flash('We cannot delete the facility flash')
+      return redirect(url_for('facilities'))
 
 @app.route('/new_facility',methods=['GET', 'POST'])
 @login_required
 def new_facility():
-  form = forms.New_Facility_Form()
-  if form.validate_on_submit():
-    models.Facility.create(
-      name=form.name.data.strip(), 
-      email=form.email.data.strip(),
-      address=form.address.data.strip(),
-      lat=form.lat.data.strip(),
-      long=form.long.data.strip()
-    )
-    return redirect(url_for('facilities'))
-  return render_template('facilities_new_facility.html', form=form)
+  if current_user.is_admin: 
+    form = forms.New_Facility_Form()
+    if form.validate_on_submit():
+      models.Facility.create(
+        name=form.name.data.strip(), 
+        email=form.email.data.strip(),
+        address=form.address.data.strip(),
+        lat=form.lat.data.strip(),
+        long=form.long.data.strip()
+      )
+      return redirect(url_for('facilities'))
+    return render_template('facilities_new_facility.html', form=form)
 
-
-
+# Stripe integration
 @app.route('/pay', methods = ['POST'])
 def pay():
   print(request.form)
@@ -316,54 +404,11 @@ def pay():
   )
   return '{} paid 9.99. Thanks!'.format(charge.customer)
 
+@app.route('/invoices', methods=['GET'])
+def get_invoices():
+  invoices = stripe.Invoice.list(limit=3)
+  return render_template('invoices.html', invoices=invoices)
 
-# @app.route('/barbers')
-# @app.route('/barbers/<id>/', methods=['GET', 'POST'])
-# def barbers(id=None):
-#   if request.args.get('neighborhood') == 'choose':
-#     neighborhood_code = "ga"
-#   else:
-#     neighborhood_code = request.args.get('neighborhood')
-#   neighborhood = neighborhoods_by_key.get(neighborhood_code)
-#   form = forms.PostForm()
-#   if id == None:
-#     barbers = models.Barber.select().limit(100)
-#     return render_template('barbers.html', barbers=barbers, form=form, neighborhood = neighborhood)
-#   else:
-#     barber_param = int(id)
-#     barber = models.Barber.get(models.Barber.id == barber_param)
-#     reviews = barber.reviews
-#     form = ReviewForm()
-#     if form.validate_on_submit():
-#       models.Review.create(
-#         barber=barber_param, 
-#         user_id=g.user._get_current_object(),
-#         text=form.text.data.strip(), 
-#         rating=form.rating.data.strip()
-#         )
-#       flash("You created a review")
-#     return render_template("barber.html", barber=barber, reviews=reviews,form=form, pub_key=pub_key)
-
-# @app.route('/barbers/<barberid>/reviews/<id>/delete')
-# def delete_review(barberid, id):
-#   if request.args.get('neighborhood') == None:
-#     neighborhood_code = "ga"
-#   else:
-#     neighborhood_code = request.args.get('neighborhood')
-#   neighborhood = neighborhoods_by_key.get(neighborhood_code) # tab this over if necessary
-#   review_param = int(id)
-#   barber_param = int(barberid)
-#   review = models.Review.get_or_none(review_param)
-#   if str(review.user_id) == str(current_user.id):
-#     review.delete_instance()
-#     form = ReviewForm()
-#     barber = models.Barber.get(models.Barber.id == barber_param)
-#     reviews = barber.reviews
-#     flash('you deleted your review')
-#     return redirect(url_for('barbers', id=barber_param))
-#   else:
-#     flash('you cannot delete a review that is not yours')
-#   return redirect(url_for('barbers', id=barber_param, neighborhood = neighborhood))
 
 if 'ON_HEROKU' in os.environ:
   print('hitting ')

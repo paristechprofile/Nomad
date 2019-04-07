@@ -3,6 +3,7 @@
 {% block content %}
 
 <h2>Edit Parkers</h2>
+
 <div class='column1' >
     <form  method="POST" action="" novalidate>
       {{ form.hidden_tag() }} 
@@ -16,27 +17,27 @@
       </div>
       <div class="field">
       {{ form.make.label(class_="label") }}
-      {{ form.make(class_="input", placeholder=parker.make, id="parkerMake")}}
+      {{ form.make(class_="input", placeholder=vehicle.make, id="parkerMake")}}
       </div>
       <div class="field">
       {{ form.year.label(class_="label") }}
-      {{ form.year(class_="input", placeholder=parker.year, id="parkerYear")}}
+      {{ form.year(class_="input", placeholder=vehicle.year, id="parkerYear")}}
       </div>
       <div class="field">
       {{ form.model.label(class_="label") }}
-      {{ form.model(class_="input", placeholder=parker.model, id="parkerModel")}}
+      {{ form.model(class_="input", placeholder=vehicle.model, id="parkerModel")}}
       </div>
       <div class="field">
       {{ form.color.label(class_="label") }}
-      {{ form.color(class_="input", placeholder=parker.color, id="parkerColor")}}
+      {{ form.color(class_="input", placeholder=vehicle.color, id="parkerColor")}}
       </div>
       <div class="field">
       {{ form.license_plate.label(class_="label") }}
-      {{ form.license_plate(class_="input", placeholder=parker.license_plate, id="parkerLicensePlate")}}
+      {{ form.license_plate(class_="input", placeholder=vehicle.license_plate, id="parkerLicensePlate")}}
       </div>
       <div class="field">
       {{ form.license_state.label(class_="label") }}
-      {{ form.license_state(class_="input", placeholder=parker.license_state, id="parkerLicenseState")}}
+      {{ form.license_state(class_="input", placeholder=vehicle.license_state, id="parkerLicenseState")}}
       </div>
       <div class="field">
       {{ form.submit(class_="button") }}

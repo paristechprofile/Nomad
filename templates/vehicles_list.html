@@ -36,7 +36,7 @@
         <td>{{vehicle.license_plate}}</td>
         <td>{{vehicle.license_state}}</td>
         {#<!-- <td>{{vehicle.parker_id}}</td> -->#}
-        <td class="right aligned"><div><a class="item" href="#" title="New Vehicle">EDIT</a></div><div></div><a class="item" href="#" title="New Vehicle">DELETE</a></div></td>
+        <td class="right aligned"><div><a class="item" href="{{url_for('edit_vehicles', id=vehicle.id)}}" title="Edit Vehicle">EDIT</a></div><div></div><a class="item" href="{{url_for('delete_vehicle', id=vehicle.id)}}" title="Delete Vehicle">DELETE</a></div></td></td>
       </tr>
       {% endfor %} 
     </tbody>
@@ -44,7 +44,6 @@
   {% else %}
   <div class="">
       <div class="right floated">
-        <a class="item" href="{{url_for('new_vehicle')}}" title="New Vehicle">Add Vehicles</a>
         </div>
     </div>
     <table class="ui selectable inverted table">
@@ -63,7 +62,7 @@
             <td>{{vehicle.make}}</td>
             <td>{{vehicle.model}}</td>
             <td>{{vehicle.license_plate}}</td>
-            <td class="right aligned">None</td>
+            <td class="right aligned"><div><a class="item" href="{{url_for('edit_vehicles', id=vehicle.id)}}" title="Edit Vehicle">EDIT</a></div><div></div><a class="item" href="{{url_for('delete_vehicle', id=vehicle.id)}}" title="Delete Vehicle">DELETE</a></div></td></td>
           </tr>
           {% endfor %} 
         </tbody>

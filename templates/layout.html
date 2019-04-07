@@ -36,7 +36,7 @@
           <a class="nav-link item" href="{{url_for('vehicles')}}" title="Vehicles">Vehicles</a>
           <a class="nav-link item" href="{{url_for('facilities')}}" title="Parking Facilities">Parking Facilities</a>
           <div class="divider"></div>
-          <a class="nav-link item" href="https://dashboard.stripe.com/invoices" title="Invoices">Invoices</a>
+          <a class="nav-link item" href="{{url_for('get_invoices')}}" title="Invoices">Invoices</a>
           {% endif %}
         </div>
       </div>

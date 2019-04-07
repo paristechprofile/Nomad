@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% if current_user.is_admin %}
+<div class="">
+  <div class="right floated">
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class={{category}}>{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+</div>
+<table class="ui selectable inverted table">
+    <thead>
+      <tr>
+        <th>Invoices</th>
+        
+        <th class="right aligned">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoice in invoices %}
+      <tr>
+        <td>{{invoice.id}}</td>
+        
+        <!-- <td>Approved</td> -->
+        {#<td class="right aligned"><div><a class="item" href="{{url_for('edit_parkers', id=parker.id)}}" title="Edit Parker">EDIT</a></div><div></div><a class="item" href="{{url_for('delete_parker', id=parker.id)}}" title="Delete Parker">DELETE</a></div></td></td>#}
+      </tr>
+      {% endfor %} 
+    </tbody>
+  </table>
+  {% else %}
+  <div class="">
+      <div class="right floated">
+        
+        </div>
+    </div>
+    <table class="ui selectable inverted table fixed">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Amount Due</th>
+            <th>Link</th>
+            <th>PDF</th>
+            <th class="right aligned">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for invoice in invoices %}
+          <tr>
+            <td>{{invoice.object}}</td>
+            <td>{{invoice.description}}</td>
+            <td>{{invoice.amount_due}}</td>
+            <td><div><a class="item" href="{{invoice.hosted_invoice_url}}">Invoice Link</a></div></td>
+            <td><div><a class="item" href="{{invoice.invoice_pdf}}">Invoice PDF</a></div></td>
+            <!-- <td>Approved</td> -->
+        {#<td class="right aligned"><a class="item" href="{{url_for('add_vehicle', id=parker.id)}}" title="Add Vehicle">Add Vehicle</a>#}
+        {#<td class="right aligned"><div><a class="item" href="{{url_for('edit_parkers', id=parker.id)}}" title="Edit Parker">EDIT</a></div><div></div><a class="item" href="{{url_for('delete_parker', id=parker.id)}}" title="Delete Parker">DELETE</a></div></td></td>#}
+        
+        </td>
+          </tr>
+          {% endfor %} 
+        </tbody>
+      </table>
+  {% endif %}
+{% endblock %}
