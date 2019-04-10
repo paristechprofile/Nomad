@@ -1,34 +1,17 @@
 {% extends "layout.html" %}
 {% block content %}
-  <div class="row">
-    <div class="col jumbotron">
-      <h1 class="display-4">Nomad</h1>
-      <p class="lead">Parking, Wherever You Roam</p>
-      <hr class="my-4">
-      <p>Grab your monthly parking now</p>
-      <a class="btn btn-dark btn-lg" href="#" role="button">Learn more</a>
+
+<div class="row">
+  <div class="column hero">
+    <div class="row">
+      <div class=" column heroText">
+    Wherever you roam, 
+    park with <i>Nomad</i>
+      </div>  
+      <div class=" column heroButton">
+        <a class="item " href="{{url_for('signup')}}" title="signup"><div class="ui primary button signup" title="signup">Learn More</div></a>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <div class={{category}}>{{ message }}</div>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-    </div>
-  </div>
-  <form action="{{url_for('pay')}}" method="POST">
-    <script
-      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="pk_test_Gw8IVbbM8DOAEaBbLL0kTgyb00Y5uaJJYF"
-      data-amount="999"
-      data-name="nomadparking.space"
-      data-description="Widget"
-      data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-      data-locale="auto">
-    </script>
-  </form>
+  </div>  
+</div>
 {% endblock %}

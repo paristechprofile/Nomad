@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% from 'macros.html' import render_field%}
+
+{% block content %}
+
+<div class="row ">
+  <div class="column login">
+    <div class="row">
+      <div class="column">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+          {% for category, message in messages %}
+          <div class={{category}}>{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+    <div class="right floated">
+      <a class="item" href="{{url_for('facilities')}}" title="List View">List View</a>
+    </div>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.css' type='text/css' />
+<style>
+#geocoder-container > div {
+min-width:50%;
+margin-left:5%;
+}
+</style>
+<div id='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoicGFyaXN0ZWNocHJvZmlsZSIsImEiOiJjanU4anQ4czcwNGpsM3lwOHVweDQ1cmdkIn0.8i83_Ry2rVNZRQbMjpsnOA';
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/mapbox/dark-v10',
+  center: [-97.7437,30.2711],
+  zoom: 14,
+  pitch:25
+});
+
+var geocoder = new MapboxGeocoder({
+  accessToken: mapboxgl.accessToken,
+  marker: {
+    color: 'orange'
+  },
+  mapboxgl: mapboxgl
+  });
+
+map.addControl(geocoder);
+
+</script>
+      </div>
+  </div>
+</div>
+{% endblock %}

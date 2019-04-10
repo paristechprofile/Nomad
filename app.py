@@ -38,7 +38,7 @@ def load_user(userid):
 @app.before_request
 def before_request():
   """Connect to the database before each request."""
-  g.db = models.DATABASE #peewee
+  g.db = models.DATABASE 
   g.db.connect()
   g.user = current_user
 
@@ -176,6 +176,7 @@ def new_parker():
         user_id=current_user.id,
         )
       parker_id = models.Parker.select().order_by(models.Parker.id.desc()).get()
+      #test if parker create doesn't work. Check form. create an if/then 
       models.Vehicle.create(
         parker_id=parker_id.id,
         make = form.make.data.strip(),
@@ -332,7 +333,8 @@ def delete_vehicle(id):
     else: 
       flash('We cannot delete the vehicle')
   return redirect(url_for('vehicles'))
-  
+
+# Facility views  
 @app.route('/space')
 @login_required
 def facilities(id=None):
@@ -340,7 +342,11 @@ def facilities(id=None):
     facilities = models.Facility.select().limit(100)
   return render_template('facilities_list.html', facilities=facilities)
 
-# Facility views
+@app.route('/space/map')
+@login_required
+def map_view():
+  return render_template('facilities_map.html')
+
 @app.route('/space/<id>/', methods=['GET', 'POST'])
 @login_required
 def edit_facility(id):

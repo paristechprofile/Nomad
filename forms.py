@@ -103,27 +103,3 @@ class Admin_Edit_Facility_Form(Form):
   lat = StringField('Lat')
   long = StringField('Long')
   submit = SubmitField('Save')
-
-
-
-# class ReviewForm(Form):
-#   barber = StringField('Barber:')
-#   user = StringField('User:')
-#   text = TextAreaField('Review')
-#   rating = StringField('Rating')
-#   submit = SubmitField('Create Review')
-
-# class EditForm(Form):
-#   barber = StringField('Barber:')
-#   user = StringField('User:')
-#   text = TextAreaField('Review', validators=[DataRequired()])
-#   rating = StringField('Rating', validators=[
-#     DataRequired(),
-#     Regexp(
-#       r'^[0-5_]+$',
-#       message=("Rating should be 0-5 only")
-#     )
-#   ])
-#   submit = SubmitField('Save')
-
-

@@ -76,7 +76,7 @@ class Facility(Model):
         long=long
       )
     except IntegrityError:
-      raise ValueError("User already exists")
+      raise ValueError("Facility already exists")
 
 class Parker(Model):
   team_id = ForeignKeyField(Team, backref='parker', null=True)
@@ -109,7 +109,6 @@ class Vehicle(Model):
   facility_id = ForeignKeyField(Facility, backref='vehicle',null=True)
   parker_id = ForeignKeyField(Parker, backref='vehicle', null=True)
 
-  
   class Meta:
     database = DATABASE
   
@@ -129,8 +128,6 @@ class Vehicle(Model):
     except IntegrityError:
       raise ValueError("Vehicle already exists")
 
-
-  
 def initialize():
   DATABASE.connect()
   DATABASE.create_tables([Team, User, Vehicle, Parker, Facility], safe=True)

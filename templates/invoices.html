@@ -2,10 +2,20 @@
 
 {% block content %}
 {% if current_user.is_admin %}
-<div class="">
-  <div class="right floated">
-  </div>
-</div>
+<div class="row ">
+    <div class="column login">
+      <div class="row">
+        <div class="column">
+          <h5>Invoices</h5>
+          {% with messages = get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+            {% for category, message in messages %}
+            <div class={{category}}>{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+          {% endwith %}
+        </div>
+      </div>
 <div class="row">
   <div class="col">
     {% with messages = get_flashed_messages(with_categories=True) %}

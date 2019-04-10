@@ -2,7 +2,21 @@
 {% from 'macros.html' import render_field%}
 
 {% block content %}
-<h5>Add A New Team</h5>
+<div class="row ">
+  <div class="column login">
+    <div class="row">
+      <div class="column">
+        <h5>Add A New Team</h5>
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+          {% for category, message in messages %}
+          <div class={{category}}>{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
+
 <div class="row">
   <div class="col">
     {% with messages = get_flashed_messages(with_categories=True) %}
