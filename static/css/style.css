@@ -39,8 +39,8 @@ button {
   width:90%!important;
 }
 .geocoder-icon-close {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 25px;
   margin-top: 0px !important;
   margin-right: 0px !important; 
 }
@@ -48,7 +48,7 @@ button {
   z-index: 2;
   position: absolute;
   width: 14% !important;
-  height: 70% !important;
+  height: 75% !important;
   right: 8px;
   top: 15% !important;
   border-radius: 50% !important;
@@ -379,5 +379,21 @@ a.item{
     text-align: center;
     color: #ffffff;
     text-align: center;
+  }
+  .geocoder-icon-close {
+    width: 20px !important;
+    height: 20px !important;
+    margin-top: 0px !important;
+    margin-right: 0px !important; 
+  }
+  .mapboxgl-ctrl-geocoder .geocoder-pin-right > * {
+    z-index: 2;
+    position: absolute;
+    width: 14% !important;
+    height: 70% !important;
+    right: 8px;
+    top: 15% !important;
+    border-radius: 50% !important;
+    display: none;
   }
 }
