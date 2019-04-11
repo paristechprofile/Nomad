@@ -1,19 +1,12 @@
 {% extends "layout.html" %} 
-
+{% from 'macros.html' import render_field%}
 {% block content %}
 
 <div class="row ">
     <div class="column login">
       <div class="row">
         <div class="column">
-            <h2>Edit Parkers</h2>
-          {% with messages = get_flashed_messages(with_categories=True) %}
-          {% if messages %}
-            {% for category, message in messages %}
-            <div class={{category}}>{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-          {% endwith %}
+           
         </div>
       </div>
 

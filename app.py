@@ -52,6 +52,12 @@ def after_request(res):
 def index():
   return render_template('home.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
 # Authentication
 @app.route('/admin')
 @basic_auth.required
@@ -63,13 +69,25 @@ def signup():
   form = forms.RegisterForm()
   if form.validate_on_submit():
     models.User.create_user(
+      team_id=1,
       username=form.username.data,
-      email=form.email.data,
-      password=form.password.data
+      password=form.password.data,
+      email=form.email.data
       )
-    flash("You've been signed up, now just log-in", "success")
+    flash("You're signed up, now just log-in", "success")
     return redirect(url_for('login'))
+  else:
+    flash("ERROR", "error")
   return render_template('signup.html', form=form)
+  # user = models.User.select().order_by(models.User.id.desc()).get()
+    # stripe.Customer.create(
+    #   description="Test creating a customer",
+    #   email=user.email 
+    # )
+    # flash("You're signed up, now just log-in", "success")
+    # print(user)
+    # print(user.email)
+
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
@@ -78,14 +96,14 @@ def login():
     try:
       user = models.User.get(models.User.email == form.email.data)
     except models.DoesNotExist:
-      flash("your email or password doesn't match", "error")
+      flash("Your email or password doesn't match", "error")
     else:
       if check_password_hash(user.password, form.password.data):
         login_user(user)
-        flash("You're in", 'success')
+        flash("Welcome back!", 'success')
         return redirect(url_for('index'))
       else:
-        flash("your email or password doesn't match", "error")
+        flash("Your email or password doesn't match", "error")
   return render_template('login.html', form=form)
 
 @app.route('/logout')
@@ -116,10 +134,10 @@ def edit_teams(id):
       team.phone = form.phone.data
       team.email = form.email.data
       team.save()
-      flash('you saved the edited team')
+      flash('You successfully saved the edited team')
       return redirect(url_for('teams'))
     else: 
-      flash('Testing this team flash')
+      flash('Error saving team to database')
     return render_template("teams_edit.html", team=team,form=form)
 
 @app.route('/teams/<id>/delete', methods=['GET', 'POST'])
@@ -130,10 +148,10 @@ def delete_team(id):
     team = models.Team.get_or_none(team_param)
     if str(team.id) == str(team_param):
       team.delete_instance()
-      flash('you deleted the team')
+      flash('You deleted the team')
       return redirect(url_for('teams'))
     else: 
-      flash('We cannot delete the team flash')
+      flash('Error deleting the team')
   return redirect(url_for('teams'))
 
 @app.route('/new_team', methods=['GET', 'POST'])
@@ -148,7 +166,10 @@ def new_team():
         phone=form.phone.data.strip(), 
         email=form.email.data.strip()
       )
+      flash('You created a new team')
       return redirect(url_for('teams'))
+    else:
+      flash('Error creating a new team')
   return render_template('teams_new_team.html', form=form)
 
 # Parker views
@@ -189,6 +210,7 @@ def new_parker():
       flash('You added a new parker')
       return redirect(url_for('parkers'))
     else:
+      flash('Error adding a new parker')
       return render_template('parkers_new_parker.html', form=form)
   else:
     if form.validate_on_submit():
@@ -211,6 +233,7 @@ def new_parker():
       flash('You added a new parker')
       return redirect(url_for('parkers'))
     else:
+      flash('Error adding a new parker')
       return render_template('parkers_new_parker.html', form=form)
 
 @app.route('/parkers/<id>/', methods=['GET', 'POST'])
@@ -231,10 +254,10 @@ def edit_parkers(id):
     vehicle.license_state = form.license_state.data
     vehicle.save()
     parker.save()
-    flash('you saved the edited parker')
+    flash('You saved the edited parker')
     return redirect(url_for('parkers'))
   else: 
-    flash('Testing this parker flash')
+    flash('Error editing the parker')
     return render_template("parkers_edit.html", parker=parker, vehicle=vehicle, form=form)
 
 @app.route('/parkers/<id>/delete', methods=['GET', 'POST'])
@@ -247,19 +270,19 @@ def delete_parker(id):
     if str(parker.id) == str(parker_param):
       vehicle.delete_instance()
       parker.delete_instance()
-      flash('you deleted the parker')
+      flash('You deleted the parker')
       return redirect(url_for('parkers'))
     else: 
-      flash('We cannot delete the parker')
+      flash('Error deleting the parker')
   else:
     parker_param = int(id)
     parker = models.Parker.get_or_none(parker_param)
     if str(parker.id) == str(parker_param):
       parker.delete_instance()
-      flash('you deleted the parker')
+      flash('You deleted the parker')
       return redirect(url_for('parkers'))
     else: 
-      flash('We cannot delete the parker')
+      flash('Error deleting the parker')
   return redirect(url_for('parkers'))
 
 # Vehicle views
@@ -288,7 +311,9 @@ def add_vehicle(id):
       license_plate=form.license_plate.data.strip(),
       license_state=form.license_state.data.strip(),
       )
+    flash('You added a vehicle')
     return redirect(url_for('parkers'))
+  flash('Error adding a vehicle')
   return render_template('vehicles_new_vehicle.html', vehicle=vehicle, parker=parker, form=form)
 
 @app.route('/vehicles/<id>/', methods=['GET', 'POST'])
@@ -305,10 +330,10 @@ def edit_vehicles(id):
     vehicle.license_plate = form.license_plate.data
     vehicle.license_state = form.license_state.data
     vehicle.save()
-    flash('you saved the edited vehicle')
+    flash('You saved the edited vehicle')
     return redirect(url_for('vehicles'))
   else: 
-    flash('Testing this vehicle flash')
+    flash('Error editing the vehicle')
     return render_template("vehicles_edit.html", vehicle=vehicle, form=form)
 
 @app.route('/vehicles/<id>/delete', methods=['GET', 'POST'])
@@ -319,19 +344,19 @@ def delete_vehicle(id):
     vehicle = models.Vehicle.get_or_none(vehicle_param)
     if str(vehicle.id) == str(vehicle_param):
       vehicle.delete_instance()
-      flash('you deleted the vehicle')
+      flash('You deleted the vehicle')
       return redirect(url_for('vehicles'))
     else: 
-      flash('We cannot delete the vehicle')
+      flash('Error deleting the vehicle')
   else:
     vehicle_param = int(id)
     vehicle = models.Vehicle.get_or_none(vehicle_param)
     if str(vehicle.id) == str(vehicle_param):
       vehicle.delete_instance()
-      flash('you deleted the vehicle')
+      flash('You deleted the vehicle')
       return redirect(url_for('vehicles'))
     else: 
-      flash('We cannot delete the vehicle')
+      flash('Error deleting the vehicle')
   return redirect(url_for('vehicles'))
 
 # Facility views  
@@ -361,10 +386,10 @@ def edit_facility(id):
       facility.lat = form.lat.data
       facility.long = form.name.data
       facility.save()
-      flash('you saved the edited facility')
+      flash('You saved the edited facility')
       return redirect(url_for('facilities'))
     else: 
-      flash('Testing this edit_facility flash')
+      flash('Error editing the facility')
       return render_template("facilities_edit.html", facility=facility,form=form)
 
 @app.route('/space/<id>/delete', methods=['GET', 'POST'])
@@ -375,10 +400,10 @@ def delete_facility(id):
     facility = models.Facility.get_or_none(facility_param)
     if str(facility.id) == str(facility_param):
       facility.delete_instance()
-      flash('you deleted the facility')
+      flash('You deleted the facility')
       return redirect(url_for('facilities'))
     else: 
-      flash('We cannot delete the facility flash')
+      flash('Error deleting the facility')
       return redirect(url_for('facilities'))
 
 @app.route('/new_facility',methods=['GET', 'POST'])
@@ -394,8 +419,11 @@ def new_facility():
         lat=form.lat.data.strip(),
         long=form.long.data.strip()
       )
+      flash('You created a new facility')
       return redirect(url_for('facilities'))
-    return render_template('facilities_new_facility.html', form=form)
+    else: 
+      flash('Error creating a new facility')
+      return render_template('facilities_new_facility.html', form=form)
 
 # Stripe integration
 @app.route('/pay', methods = ['POST'])
@@ -414,8 +442,43 @@ def pay():
   return '{} paid 9.99. Thanks!'.format(charge.customer)
 
 @app.route('/invoices', methods=['GET'])
+@login_required
 def get_invoices():
-  invoices = stripe.Invoice.list(limit=3)
+  invoices = stripe.Invoice.list(limit=12)
+  try:
+    # Use Stripe's library to make requests...
+    pass
+  except stripe.error.CardError as e:
+    # Since it's a decline, stripe.error.CardError will be caught
+    body = e.json_body
+    err  = body.get('error', {})
+
+    print ("Status is: %s" % e.http_status)
+    print ("Type is: %s" % err.get('type'))
+    print ("Code is: %s" % err.get('code'))
+    # param is '' in this case
+    print ("Param is: %s" % err.get('param'))
+    print ("Message is: %s" % err.get('message'))
+  except stripe.error.RateLimitError as e:
+    # Too many requests made to the API too quickly
+    pass
+  except stripe.error.InvalidRequestError as e:
+    # Invalid parameters were supplied to Stripe's API
+    pass
+  except stripe.error.AuthenticationError as e:
+    # Authentication with Stripe's API failed
+    # (maybe you changed API keys recently)
+    pass
+  except stripe.error.APIConnectionError as e:
+    # Network communication with Stripe failed
+    pass
+  except stripe.error.StripeError as e:
+    # Display a very generic error to the user, and maybe send
+    # yourself an email
+    pass
+  except Exception as e:
+    # Something else happened, completely unrelated to Stripe
+    pass
   return render_template('invoices.html', invoices=invoices)
 
 

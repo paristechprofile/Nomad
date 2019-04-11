@@ -1,19 +1,13 @@
 {% extends "layout.html" %}
-
+{% from 'macros.html' import render_field%}
 {% block content %}
 {% if current_user.is_admin %}
 <div class="row ">
   <div class="column login">
     <div class="row">
       <div class="column">
-          <h5>Vehicles List</h5>
-        {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-          {% for category, message in messages %}
-          <div class={{category}}>{{ message }}</div>
-          {% endfor %}
-        {% endif %}
-        {% endwith %}
+          
+        
       </div>
     </div>
     
@@ -53,10 +47,14 @@
     </tbody>
   </table>
   {% else %}
-  <div class="">
-      <div class="right floated">
+  <div class="row ">
+      <div class="column login">
+        <div class="row">
+          <div class="column">
+              <h5>Vehicles List</h5>
+        
+          </div>
         </div>
-    </div>
     <table class="ui selectable inverted table">
         <thead>
           <tr>

@@ -6,8 +6,8 @@ from flask_bcrypt import generate_password_hash
 from playhouse.db_url import connect
 from flask import g
 
-DATABASE = connect(os.environ.get('DATABASE_URL'))
-# DATABASE = PostgresqlDatabase('nomad') #local postgres backup
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
+DATABASE = PostgresqlDatabase('nomad') #local postgres backup
 # DATABASE = SqliteDatabase('nomad.db') #local sqlitebackup if postgres is buggy
 
 class Team(Model):
@@ -37,7 +37,7 @@ class User(UserMixin, Model):
   password  = CharField(max_length=100)
   joined_at = DateTimeField(default=datetime.datetime.now)
   is_admin = BooleanField(default=False)
-  team_id = ForeignKeyField(Team, backref='user')
+  team_id = ForeignKeyField(Team, backref='user', null=True)
 
   class Meta:
     database = DATABASE
@@ -46,14 +46,14 @@ class User(UserMixin, Model):
   def create_user(cls, team_id, username, email, password, admin=False):
     try:
       cls.create(
+        team_id=team_id,
         username=username,
         email=email,
         password=generate_password_hash(password),
-        is_admin=admin,
-        team_id=team_id
+        is_admin=admin
       )
     except IntegrityError:
-      raise ValueError("User already exists")
+      raise ValueError("Error saving new user.")
 
 class Facility(Model):
   name = CharField()

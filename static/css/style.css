@@ -1,4 +1,5 @@
 
+
 body{
   background: #1b1c1d !important;
   color: white !important;
@@ -9,10 +10,10 @@ button {
   display: inline-flex;
   justify-content: center;
   border: none;
-  padding-top: 2%;
+  padding-top: 7%;
   padding-right:2%;
   padding-left:2%;
-  padding-bottom:2%;
+  padding-bottom:6%;
   text-align: center;
   margin: 1em;
   text-decoration: none;
@@ -75,34 +76,35 @@ button {
 }
 button:hover,
 button:focus {
-    background: #0053ba;
+  background: #0053ba;
 }
 
 button:focus {
-    outline: 1px solid #fff;
-    outline-offset: -4px;
+  outline: 1px solid #fff;
+  outline-offset: -4px;
 }
 
 button:active {
-    transform: scale(0.99);
+  transform: scale(0.99);
 }
 .nav-link {
   color: white !important;
 }
 a.item{
   color:white !important;
+  font-size: 14px;
 }
 .logo{
   padding: 0px !important;
-  margin:0px !important;
+  margin: 0px !important;
 }
 .ui.menu {
-  margin:0px;
   background: transparent;
   color: white;
   z-index: 1;
   position: absolute;
-  
+  padding-bottom: .5em !important;
+  padding-top: .5em !important;
   left: 0;
   right: 0;
   border: 0px solid rgba(34,36,38,.15);
@@ -110,12 +112,12 @@ a.item{
   box-shadow: 0 0px 0px 0 rgba(34,36,38,.15);
 }
 
-
-.logout, .signup {
-  width: 122px !important;
+.logout, .signup, #submit{
+  width: 150px !important;
   border-radius: 26.5px !important;
   border: solid 1px #2d3ba6 !important;
   background-color: #2d3ba6 !important;
+  font-size: 17px !important;
 }
 .logo{
   width: 10%;
@@ -128,15 +130,16 @@ a.item{
   justify-content: center;
   position: absolute;
   background-size: cover;
-  background-image: url(  "../img/garage5.jpg");
+  background-image: url(  "../img/garage8.jpg");
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
 }
 .heroText{
+  justify-content: center;
   padding-top: 20%;
-  padding-right:10%;
-  padding-left:10%;
+  padding-right:20%;
+  padding-left:20%;
   width: 100%;
   height: 190px;
   font-size: 80px;
@@ -152,7 +155,7 @@ a.item{
   
 }
 .heroButton{
-  padding-top: 15%;
+  padding-top: 26%;
   padding-right:10%;
   padding-left:10%;
   width: 100%;
@@ -165,20 +168,75 @@ a.item{
   text-align: center;
   color: #ffffff;
   text-align: center;
-
-  
 }
 .mapboxgl-ctrl-attrib.mapboxgl-compact, .mapboxgl-ctrl-bottom-left{
   display:none;
+}
+.macro,.success,.error,.notification,.message{
+  display: flex;
+  justify-content: center;
+  background: #2d3ba6;
+  font-size: 1.1em;
+  padding: .5em 0em;
+}
+.notification{
+  display: flex;
+  justify-content: center;
+  background: #2d3ba6;
+  font-size: 1em;
+  padding: .3em .25em;
+  margin: 1em 0em;
+  border-radius: 26.5px
 }
 
 .login{
   z-index: 1;
   position: relative;
-  top:4.2em;
+  top:5.5em;
+}
+@media screen and (min-width: 1168px){
+  a.item{
+    padding: 1em 1em !important;
+  }
+
+  .heroText{
+    padding-top: 20%;
+    padding-right:10%;
+    padding-left:10%;
+    width: 100%;
+    height: 190px;
+    font-size: 5rem;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    text-align: center;
+  }
+  .heroButton{
+    padding-top: 15%;
+    padding-right:10%;
+    padding-left:10%;
+    width: 100%;
+    font-size: 80px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 970px){
+  a.item{
+    padding: 1em 1em !important;
+  }
+
   .heroText{
     padding-top: 30%;
     padding-right:10%;
@@ -198,6 +256,7 @@ a.item{
   }
 }
 @media screen and (max-width: 845px){
+
   .heroText{
     padding-top: 30%;
     padding-right:10%;
@@ -216,10 +275,10 @@ a.item{
     
   }
 }
-
 @media screen and (max-width: 670px){
+
   .heroText{
-    padding-top: 25%;
+    padding-top: 30%;
     padding-right:10%;
     padding-left:10%;
     width: 100%;
@@ -234,5 +293,91 @@ a.item{
     color: #ffffff;
     text-align: center;
     
+  }
+  .heroButton{
+    padding-top: 15%;
+    padding-right:10%;
+    padding-left:10%;
+    width: 100%;
+    font-size: 80px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 550px){
+
+  .heroText{
+    padding-top: 32%;
+    padding-right:10%;
+    padding-left:10%;
+    width: 100%;
+    height: 190px;
+    font-size: 3.5rem;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    text-align: center;
+    
+  }
+  .heroButton{
+    padding-top: 27%;
+    padding-right:10%;
+    padding-left:10%;
+    width: 100%;
+    font-size: 80px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 400px){
+
+  .heroText{
+    padding-top: 40%;
+    padding-right:10%;
+    padding-left:10%;
+    width: 100%;
+    height: 190px;
+    font-size: 3.5rem;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    text-align: center;
+    
+  }
+  .heroButton{
+    padding-top: 33%;
+    padding-right:10%;
+    padding-left:10%;
+    width: 100%;
+    font-size: 80px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    text-align: center;
   }
 }

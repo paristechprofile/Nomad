@@ -1,18 +1,12 @@
 {% extends "layout.html" %}
-
+{% from 'macros.html' import render_field%}
 {% block content %}
 {% if current_user.is_admin %}
 <div class="row ">
   <div class="column login">
     <div class="row">
       <div class="column">
-        {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-          {% for category, message in messages %}
-          <div class={{category}}>{{ message }}</div>
-          {% endfor %}
-        {% endif %}
-        {% endwith %}
+    
       </div>
     </div>
     <div class="right floated">
@@ -42,11 +36,17 @@
     </tbody>
   </table>
   {% else %}
-  <div class="">
-      <div class="right floated">
-        <a class="item" href="{{url_for('new_parker')}}" title="New Parker">Add Parkers</a>
+  <div class="row ">
+      <div class="column login">
+        <div class="row">
+          <div class="column">
+        
+          </div>
         </div>
-    </div>
+        <h5>Parkers List</h5>
+        <div class="right floated">
+          <a class="item" href="{{url_for('new_parker')}}" title="Add Parker">Add Parker</a>
+        </div>
     <table class="ui selectable inverted table">
         <thead>
           <tr>

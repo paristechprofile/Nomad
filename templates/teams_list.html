@@ -1,26 +1,20 @@
 {% extends "layout.html" %}
-
+{% from 'macros.html' import render_field%}
 {% block content %}
 {% if current_user.is_admin %}
 <div class="row ">
     <div class="column login">
       <div class="row">
         <div class="column">
-          {% with messages = get_flashed_messages(with_categories=True) %}
-          {% if messages %}
-            {% for category, message in messages %}
-            <div class={{category}}>{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-          {% endwith %}
         </div>
       </div>
-<div class="">
-
-  <div class="right floated">
-    <a class="item" href="{{url_for('new_team')}}" title="New Team">Add Teams</a>
-    </div>
-</div>
+      <div class="row ">
+          <div class="column login">
+            <div class="row">
+              <div class="column">
+               
+              </div>
+            </div>
 
 <table class="ui selectable inverted table">
     <thead>

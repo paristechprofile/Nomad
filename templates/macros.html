@@ -1,5 +1,5 @@
 {% macro render_field(field) %}
-  <div class="field">
+  <div class="field column macros">
     {% if field.errors %}
       {% for error in field.errors %}
         <div class="notification error">
@@ -12,7 +12,7 @@
 {% endmacro %}
 
 {% macro render_field(field) %}
-  <div class="field">
+  <div class="field column errors">
     {% if field.errors %}
       {% for error in field.errors %}
         <div class="notification error">

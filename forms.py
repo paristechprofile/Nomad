@@ -50,7 +50,11 @@ class New_Team_Form(Form):
   name = StringField('Name', validators=[DataRequired()])
   point_of_contact = StringField('Point of Contact')
   phone = StringField('Phone')
-  email = StringField('Email')
+  email = StringField('Email', validators=[
+    DataRequired(),
+    Email(),
+    email_exists
+  ])
 
 class Edit_Team_Form(Form):
   name = StringField('Name', validators=[DataRequired()])
