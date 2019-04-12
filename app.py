@@ -514,122 +514,122 @@ if 'ON_HEROKU' in os.environ:
 
 if __name__ == '__main__':
   models.initialize()
-  try:
-    # models.Team.create_team(
-    #   name = 'Nomad',
-    #   point_of_contact = 'Paris Taylor',
-    #   phone = '512.987.7556',
-    #   email = 'paris@nomadparking.space'
-    # )
-    # models.Team.create_team(
-    #   name = 'Preacher',
-    #   point_of_contact = 'John',
-    #   phone = '512.999.9999',
-    #   email = 'john@preacher.com'
-    # )
-    # models.User.create_user(
-    #   username='paris',
-    #   email='paris@nomadparking.space',
-    #   password='whynot',
-    #   admin=True,
-    #   team_id= 1,
-    #   stripe_id='1'
-    # )
-    # models.User.create_user(
-    #   username='Amanda',
-    #   email='amanda@preacher.com',
-    #   password='pencil',
-    #   admin=False,
-    #   team_id= 2,
-    #   stripe_id='2'
-    # )
-    # models.User.create_user(
-    #   username='John',
-    #   email='john@preacher.com',
-    #   password='pencil',
-    #   admin=False,
-    #   team_id= 2,
-    #   stripe_id='3'
-    # )
-    models.Facility.create_facility(
-      name="Post Office",
-      email="laz@gmail.com",
-      address="400 congress",
-      lat=37.7647382,
-      long=-122.3883884
-    )
-    models.Facility.create_facility(
-      name="Littlefield",
-      email="premier@gmail.com",
-      address="800 Brazos",
-      lat=37.7648532,
-      long=-122.4222631
-    )
-    models.Parker.create_parker(
-      team_id = 1,
-      user_id =1,
-      name = "Paris",
-      email = "paris@nomadparking.com"
-    )
-    models.Parker.create_parker(
-      team_id = 2,
-      user_id =2,
-      name = "Amanda",
-      email = "amanda@preacher.com"
-    )
-    models.Parker.create_parker(
-      team_id = 2,
-      user_id =3,
-      name = "John",
-      email = "john@preacher.com"
-    )
-    models.Parker.create_parker(
-      team_id = 2,
-      user_id =4,
-      name = "Krystle",
-      email = "Krystle@preacher.com"
-    )
-    models.Vehicle.create_vehicle(
-      year = "2009",
-      make = "VW",
-      model = "Jetta",
-      color = "slate",
-      license_plate = "3894hf",
-      license_state = "TX",
-      facility_id=1,
-      parker_id=2
-    )
-    models.Vehicle.create_vehicle(
-      year = "2009",
-      make = "Ford",
-      model = "Escort",
-      color = "grey",
-      license_plate = "2984hf",
-      license_state = "CA",
-      facility_id=2,
-      parker_id=3
-    )
-    models.Vehicle.create_vehicle(
-      year = "2014",
-      make = "Mercedes",
-      model = "AMG",
-      color = "blue",
-      license_plate = "0394fb",
-      license_state = "TX",
-      facility_id=2,
-      parker_id=2
-    )
-    models.Vehicle.create_vehicle(
-      year = "2019",
-      make = "BWM",
-      model = "335i",
-      color = "silver",
-      license_plate = "24on44",
-      license_state = "TX",
-      facility_id=2,
-      parker_id=1
-    )
+  # try:
+  #   models.Team.create_team(
+  #     name = 'Nomad',
+  #     point_of_contact = 'Paris Taylor',
+  #     phone = '512.987.7556',
+  #     email = 'paris@nomadparking.space'
+  #   )
+  #   models.Team.create_team(
+  #     name = 'Preacher',
+  #     point_of_contact = 'John',
+  #     phone = '512.999.9999',
+  #     email = 'john@preacher.com'
+  #   )
+  #   models.User.create_user(
+  #     username='paris',
+  #     email='paris@nomadparking.space',
+  #     password='whynot',
+  #     admin=True,
+  #     team_id= 1,
+  #     stripe_id='1'
+  #   )
+  #   models.User.create_user(
+  #     username='Amanda',
+  #     email='amanda@preacher.com',
+  #     password='pencil',
+  #     admin=False,
+  #     team_id= 2,
+  #     stripe_id='2'
+  #   )
+  #   models.User.create_user(
+  #     username='John',
+  #     email='john@preacher.com',
+  #     password='pencil',
+  #     admin=False,
+  #     team_id= 2,
+  #     stripe_id='3'
+  #   )
+  #   models.Facility.create_facility(
+  #     name="Post Office",
+  #     email="laz@gmail.com",
+  #     address="400 congress",
+  #     lat=37.7647382,
+  #     long=-122.3883884
+  #   )
+  #   models.Facility.create_facility(
+  #     name="Littlefield",
+  #     email="premier@gmail.com",
+  #     address="800 Brazos",
+  #     lat=37.7648532,
+  #     long=-122.4222631
+  #   )
+  #   models.Parker.create_parker(
+  #     team_id = 1,
+  #     user_id =1,
+  #     name = "Paris",
+  #     email = "paris@nomadparking.com"
+  #   )
+  #   models.Parker.create_parker(
+  #     team_id = 2,
+  #     user_id =2,
+  #     name = "Amanda",
+  #     email = "amanda@preacher.com"
+  #   )
+  #   models.Parker.create_parker(
+  #     team_id = 2,
+  #     user_id =3,
+  #     name = "John",
+  #     email = "john@preacher.com"
+  #   )
+  #   models.Parker.create_parker(
+  #     team_id = 2,
+  #     user_id =4,
+  #     name = "Krystle",
+  #     email = "Krystle@preacher.com"
+  #   )
+  #   models.Vehicle.create_vehicle(
+  #     year = "2009",
+  #     make = "VW",
+  #     model = "Jetta",
+  #     color = "slate",
+  #     license_plate = "3894hf",
+  #     license_state = "TX",
+  #     facility_id=1,
+  #     parker_id=2
+  #   )
+  #   models.Vehicle.create_vehicle(
+  #     year = "2009",
+  #     make = "Ford",
+  #     model = "Escort",
+  #     color = "grey",
+  #     license_plate = "2984hf",
+  #     license_state = "CA",
+  #     facility_id=2,
+  #     parker_id=3
+  #   )
+  #   models.Vehicle.create_vehicle(
+  #     year = "2014",
+  #     make = "Mercedes",
+  #     model = "AMG",
+  #     color = "blue",
+  #     license_plate = "0394fb",
+  #     license_state = "TX",
+  #     facility_id=2,
+  #     parker_id=2
+  #   )
+  #   models.Vehicle.create_vehicle(
+  #     year = "2019",
+  #     make = "BWM",
+  #     model = "335i",
+  #     color = "silver",
+  #     license_plate = "24on44",
+  #     license_state = "TX",
+  #     facility_id=2,
+  #     parker_id=1
+  #   )
 
-  except ValueError:
-    pass
+  # except ValueError:
+  #   pass
   app.run(debug=DEBUG, port=PORT)
