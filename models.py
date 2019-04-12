@@ -6,8 +6,8 @@ from flask_bcrypt import generate_password_hash
 from playhouse.db_url import connect
 from flask import g
 
-DATABASE = connect(os.environ.get('DATABASE_URL'))
-# DATABASE = PostgresqlDatabase('nomad') #local postgres backup
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
+DATABASE = PostgresqlDatabase('nomad1')
 # DATABASE = SqliteDatabase('nomad.db') #local sqlitebackup if postgres is buggy
 
 class Team(Model):
@@ -29,7 +29,7 @@ class Team(Model):
         email = email
       )
     except IntegrityError:
-      raise ValueError("Team already exists")
+      raise
 
 class User(UserMixin, Model):
   username = CharField(unique=True)
@@ -38,29 +38,31 @@ class User(UserMixin, Model):
   joined_at = DateTimeField(default=datetime.datetime.now)
   is_admin = BooleanField(default=False)
   team_id = ForeignKeyField(Team, backref='user', null=True)
+  stripe_id = CharField(unique=True)
 
   class Meta:
     database = DATABASE
   
   @classmethod
-  def create_user(cls, team_id, username, email, password, admin=False):
+  def create_user(cls, team_id, username, email, password, stripe_id, admin=False):
     try:
       cls.create(
         team_id=team_id,
         username=username,
         email=email,
         password=generate_password_hash(password),
-        is_admin=admin
+        is_admin=admin,
+        stripe_id=stripe_id
       )
     except IntegrityError:
-      raise ValueError("Error saving new user.")
+      raise
 
 class Facility(Model):
   name = CharField()
   email = CharField()
   address = CharField()
-  lat=CharField()
-  long=CharField()
+  lat = CharField()
+  long = CharField()
   
   class Meta:
     database = DATABASE
@@ -126,7 +128,7 @@ class Vehicle(Model):
         parker_id=parker_id
       )
     except IntegrityError:
-      raise ValueError("Vehicle already exists")
+      raise
 
 def initialize():
   DATABASE.connect()

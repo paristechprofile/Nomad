@@ -4,73 +4,60 @@
 {% if current_user.is_admin %}
 <div class="row ">
   <div class="column login">
-    <div class="row">
-      <div class="column">
-    
-      </div>
-    </div>
-    <div class="right floated">
-      <a class="item" href="{{url_for('new_parker')}}" title="Add Parker">Add Parker</a>
-    </div>
-<table class="ui selectable inverted table">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th class="right aligned">Add Vehicle</th>
-        <th class="right aligned">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for parker in parkers %}
-      <tr>
-        <td>{{parker.id}}</td>
-        <td>{{parker.name}}</td>
-        <td>{{parker.email}}</td>
-        <!-- <td>Approved</td> -->
-        <td class="right aligned"><a class="item" href="{{url_for('add_vehicle', id=parker.id)}}" title="Add Vehicle">Add Vehicle</a>
-          <td class="right aligned"><div><a class="item" href="{{url_for('edit_parkers', id=parker.id)}}" title="Edit Parker">EDIT</a></div><div></div><a class="item" href="{{url_for('delete_parker', id=parker.id)}}" title="Delete Parker">DELETE</a></div></td></td>
-      </tr>
-      {% endfor %} 
-    </tbody>
-  </table>
-  {% else %}
-  <div class="row ">
-      <div class="column login">
-        <div class="row">
-          <div class="column">
-        
-          </div>
-        </div>
-        <h5>Parkers List</h5>
-        <div class="right floated">
-          <a class="item" href="{{url_for('new_parker')}}" title="Add Parker">Add Parker</a>
-        </div>
     <table class="ui selectable inverted table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th class="right aligned">Add Vehicle</th>
-            <th class="right aligned">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for parker in parkers %}
-          <tr>
-            <td>{{parker.id}}</td>
-            <td>{{parker.name}}</td>
-            <td>{{parker.email}}</td>
-            <!-- <td>Approved</td> -->
-        <td class="right aligned"><a class="item" href="{{url_for('add_vehicle', id=parker.id)}}" title="Add Vehicle">Add Vehicle</a>
-        <td class="right aligned"><div><a class="item" href="{{url_for('edit_parkers', id=parker.id)}}" title="Edit Parker">EDIT</a></div><div></div><a class="item" href="{{url_for('delete_parker', id=parker.id)}}" title="Delete Parker">DELETE</a></div></td></td>
-        
-        </td>
-          </tr>
-          {% endfor %} 
-        </tbody>
-      </table>
-  {% endif %}
+      <thead>
+        <tr>
+          <th class="right aligned unstackable"><a class="item ui inverted button" href="{{url_for('new_parker')}}" title="Add Parker">Add Parker</a></th>
+          <th class="left aligned unstackable">Id</th>
+          <th class="left aligned unstackable">Name</th>
+          <th class="left aligned unstackable">Email</th>
+          <th class="left aligned unstackable"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for parker in parkers %}
+        <tr>
+          <td class="left aligned unstackable">{{parker.id}}</td>
+          <td class="left aligned unstackable">{{parker.name}}</td>
+          <td class="left aligned unstackable">{{parker.email}}</td>
+          <td class="left aligned unstackable"></td>
+          <td class="right aligned"><a class="ui violet inverted button" href="{{url_for('add_vehicle', id=parker.id)}}" title="Add Vehicle">ADD VEHICLE</a> 
+          <a class="ui blue inverted button" href="{{url_for('edit_parkers', id=parker.id)}}" title="Edit Parker">EDIT</a> 
+          <a class="ui red inverted button" href="{{url_for('delete_parker', id=parker.id)}}" title="Delete Parker">DELETE</a></td>
+        </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+  </div>  
+</div>  
+{% else %}
+<div class="row ">
+  <div class="column login">
+    <table class="ui selectable inverted table">
+      <thead>
+        <tr>
+          <th class="right aligned unstackable"><a class="item ui inverted button" href="{{url_for('new_parker')}}" title="Add Parker">Add Parker</a></th>
+          <th class="left aligned unstackable">Id</th>
+          <th class="left aligned unstackable">Name</th>
+          <th class="left aligned unstackable">Email</th>
+          <th class="left aligned unstackable"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for parker in parkers %}
+        <tr>
+          <td class="left aligned unstackable">{{parker.id}}</td>
+          <td class="left aligned unstackable">{{parker.name}}</td>
+          <td class="left aligned unstackable">{{parker.email}}</td>
+          <td class="left aligned unstackable"></td>
+          <td class="right aligned"><a class="ui violet inverted button" href="{{url_for('add_vehicle', id=parker.id)}}" title="Add Vehicle">ADD VEHICLE</a> 
+          <a class="ui blue inverted button" href="{{url_for('edit_parkers', id=parker.id)}}" title="Edit Parker">EDIT</a> 
+          <a class="ui red inverted button" href="{{url_for('delete_parker', id=parker.id)}}" title="Delete Parker">DELETE</a></td>
+        </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+  </div>  
+</div>  
+{% endif %}
 {% endblock %}

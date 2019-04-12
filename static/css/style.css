@@ -34,9 +34,42 @@ button {
   border: solid 1px #2d3ba6 !important;
   background-color: #2d3ba6 !important;
 }
+.mapboxgl-popup-close-button {
+  display: inline-flex;
+  justify-content: center;
+  border: none;
+  padding-top: 0% !important; 
+  padding-right: 0% !important; 
+  padding-left: 0%!important;
+  padding-bottom: 0% !important;
+  text-align: center;
+  margin: 1em;
+  text-decoration: none;
+  background: #2d3ba6;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  align-content: center;
+  align-items: center;
+  width: 30px !important; 
+  border-radius: 26.5px !important;
+  border: solid 1px #2d3ba6 !important;
+  background-color: #2d3ba6 !important;
+}
+.mapboxgl-popup-content,.mapboxgl-popup-tip{
+  
+  background: black !important;
+  border-top-color: black !important;
+  
+}
 #map{
   height: 400px !important;
-  width:90%!important;
+  width:100%!important;
 }
 .geocoder-icon-close {
   width: 15px;
@@ -67,16 +100,22 @@ button {
   visibility: hidden;
 }
 .segment{
-
   display: flex;
   justify-content: center;
+  margin: 0px !important;
 }
 .form{
   text-align: center;
 }
-button:hover,
-button:focus {
-  background: #0053ba;
+.ui.button{
+  color:white;
+}
+.ui.button:hover,.ui.item:hover {
+  background-color: #cacbcd;
+  background-image: none;
+  -webkit-box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
+  color: grey;
 }
 
 button:focus {
@@ -92,7 +131,7 @@ button:active {
 }
 a.item{
   color:white !important;
-  font-size: 14px;
+  font-size: 16px;
 }
 .logo{
   padding: 0px !important;
@@ -110,6 +149,9 @@ a.item{
   border: 0px solid rgba(34,36,38,.15);
   -webkit-box-shadow: 0 0px 0px 0 rgba(34,36,38,.15);
   box-shadow: 0 0px 0px 0 rgba(34,36,38,.15);
+}
+.ui.inverted.segement {
+  top: 12em !important;
 }
 
 .logout, .signup, #submit{
@@ -153,6 +195,7 @@ a.item{
   text-align: center;
   
   
+  
 }
 .heroButton{
   padding-top: 26%;
@@ -192,7 +235,7 @@ a.item{
 .login{
   z-index: 1;
   position: relative;
-  top:5.5em;
+  top:10em;
 }
 @media screen and (min-width: 1168px){
   a.item{

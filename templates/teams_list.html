@@ -3,44 +3,33 @@
 {% block content %}
 {% if current_user.is_admin %}
 <div class="row ">
-    <div class="column login">
-      <div class="row">
-        <div class="column">
-        </div>
-      </div>
-      <div class="row ">
-          <div class="column login">
-            <div class="row">
-              <div class="column">
-               
-              </div>
-            </div>
-
+  <div class="column login">
 <table class="ui selectable inverted table">
-    <thead>
-      <tr>
-        <th>Team Id</th>
-        <th>Name</th>
-        <th>POC</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <!-- <th>Action</th> -->
-        <th class="right aligned">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for team in teams %}
-      <tr>
-        <td>{{team.id}}</td>
-        <td>{{team.name}}</td>
-        <td>{{team.point_of_contact}}</td>
-        <td>{{team.phone}}</td>
-        <td>{{team.email}}</td>
-        <!-- <td>Approved</td> -->
-        <td class="right aligned"><div><a class="item" href="{{url_for('edit_teams', id=team.id)}}" title="Edit Team">EDIT</a></div><div><a class="item" href="{{url_for('delete_team', id=team.id)}}" title="Delete Team">DELETE</a></div></td>
-      </tr>
-      {% endfor %} 
-    </tbody>
-  </table>
-  {% endif %}
+  <thead>
+    <tr>
+        <th class="right aligned unstackable"><a class="item ui inverted button" href="{{url_for('new_team')}}" title="Add Team">Add Team</a></th>
+      <th class="left aligned unstackable">Team Id</th>
+      <th class="left aligned unstackable">Name</th>
+      <th class="left aligned unstackable">POC</th>
+      <th class="left aligned unstackable">Phone</th>
+      <th class="left aligned unstackable">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for team in teams %}
+    <tr>
+      <td class="left aligned unstackable">{{team.id}}</td>
+      <td class="left aligned unstackable">{{team.name}}</td>
+      <td class="left aligned unstackable">{{team.point_of_contact}}</td>
+      <td class="left aligned unstackable">{{team.phone}}</td>
+      <td class="left aligned unstackable">{{team.email}}</td>
+      <td class="right aligned"><a class="ui blue inverted button" href="{{url_for('edit_teams', id=team.id)}}" title="Edit Team">EDIT</a> 
+      <a class="ui red inverted button" href="{{url_for('delete_team', id=team.id)}}" title="Delete Team">DELETE</a></td>
+    </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+  </div>  
+</div>  
+{% endif %}
 {% endblock %}

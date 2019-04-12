@@ -5,78 +5,60 @@
 {% if current_user.is_admin %}
 <div class="row ">
   <div class="column login">
-    <div class="row">
-      <div class="column">
-        
-      </div>
-    </div>
-
-    <div class="right floated">
-      <a class="item" href="{{url_for('map_view')}}" title="Map View">Map View</a>
-    </div>
-  
-
-          <table class="ui selectable inverted table">
-            <thead>
-              <tr>
-                <th>Facility Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                {#<th>Contact</th>#}
-                <!-- <th>Action</th> -->
-                <th class="right aligned">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for facility in facilities %}
-              <tr>
-                <td>{{facility.id}}</td>
-                <td>{{facility.name}}</td>
-                <td>{{facility.email}}</td>
-                <td>{{facility.address}}</td>
-                {#<td>{{facility.contact}}</td>#}
-                
-                <td class="right aligned"><div><a class="item" href="{{url_for('edit_facility', id=facility.id)}}" title="Edit Facility">EDIT</a></div><div><a class="item" href="{{url_for('delete_facility', id=facility.id)}}" title="Delete Facility">DELETE</a></div></td>
-                
-              </tr>
-              {% endfor %} 
-            </tbody>
-          </table>
-          {% else %}
-          <div class="row ">
-              <div class="column login">
-                <div class="row">
-                  <div class="column">
-                      <h5>Facilities List</h5>
-                
-                  </div>
-                </div>
-            <table class="ui selectable inverted table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <!-- <th>Action</th> -->
-                    <th class="right aligned">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for facility in facilities %}
-                  <tr>
-                    <td>{{facility.name}}</td>
-                    <td>{{facility.address}}</td>
-                    <td class="right aligned">None</td>
-                  </tr>
-                  {% endfor %} 
-                </tbody>
-              </table>
-            
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<table class="ui selectable inverted table">
+  <thead>
+    <tr>
+      <th class="right aligned unstackable"><a class="item ui inverted button" href="{{url_for('map_view')}}" title="Map View">Map View</a></th>
+      <th class="left aligned unstackable">Facility Id</th>
+      <th class="left aligned unstackable">Name</th>
+      <th class="left aligned unstackable">Email</th>
+      <th class="left aligned unstackable">Address</th>
+      <th class="left aligned unstackable">Contact</th>
+      <th class="left aligned unstackable">In use</th>
+      <th class="left aligned unstackable">Available</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for facility in facilities %}
+      <tr>
+        <td class="left aligned unstackable">{{facility.id}}</td>
+        <td class="left aligned unstackable">{{facility.name}}</td>
+        <td class="left aligned unstackable">{{facility.email}}</td>
+        <td class="left aligned unstackable">{{facility.address}}</td>
+        <td class="left aligned unstackable">{{facility.contact}}</td>
+        <td class="left aligned unstackable">32</td>
+        <td class="left aligned unstackable">5</td>
+        <td class="right aligned "><a class="ui blue inverted button" href="{{url_for('edit_facility', id=facility.id)}}" title="Edit Facility">EDIT</a><a class="ui red inverted button" href="{{url_for('delete_facility', id=facility.id)}}" title="Delete Facility">DELETE</a></td>
+      </tr>
+    {% endfor %} 
+  </tbody>
+</table>
+{% else %}
+<div class="row ">
+  <div class="column login">
+    <table class="ui selectable inverted table">
+      <thead>
+        <tr>
+          <th class="left aligned unstackable">Name</th>
+          <th class="left aligned unstackable">Address</th>
+          <th class="left aligned unstackable">In use</th>
+          <th class="left aligned unstackable">Available</th>
+          <th class="left aligned unstackable">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for facility in facilities %}
+        <tr>
+          <td class="left aligned unstackable">{{facility.name}}</td>
+          <td class="left aligned unstackable">{{facility.address}}</td>
+          <td class="left aligned unstackable">32</td>
+          <td class="left aligned unstackable">5</td>
+          <td class="left aligned unstackable"">None</td>
+        </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+  </div>  
+</div>  
 {% endif %}
 {% endblock %}

@@ -1,8 +1,8 @@
 {% macro render_field(field) %}
-  <div class="field column macros">
+  <div class="field column focus macros">
     {% if field.errors %}
       {% for error in field.errors %}
-        <div class="notification error">
+        <div class="ui input notification error ">
           {{ error }}
         </div>
       {% endfor %}
@@ -11,8 +11,8 @@
   </div>
 {% endmacro %}
 
-{% macro render_field(field) %}
-  <div class="field column errors">
+{#{% macro render_field(field) %}
+  <div class="focus">
     {% if field.errors %}
       {% for error in field.errors %}
         <div class="notification error">
@@ -22,4 +22,4 @@
     {% endif %}
     {{ field(placeholder=field.label.text) }}
   </div>
-{% endmacro %}
+{% endmacro %}#}

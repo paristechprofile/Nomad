@@ -1,67 +1,56 @@
 {% extends "layout.html" %}
 {% from 'macros.html' import render_field%}
-
 {% block content %}
 {% if current_user.is_admin %}
 <div class="row ">
   <div class="column login">
     <div class="row">
       <div class="column">
-
+      </div>
     </div>
   </div>
 </div>
 <table class="ui selectable inverted table">
-    <thead>
-      <tr>
-        <th>Invoices</th>
-        
-        <th class="right aligned">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for invoice in invoices %}
-      <tr>
-        <td>{{invoice.id}}</td>
-        
-        <!-- <td>Approved</td> -->
-        {#<td class="right aligned"><div><a class="item" href="{{url_for('edit_parkers', id=parker.id)}}" title="Edit Parker">EDIT</a></div><div></div><a class="item" href="{{url_for('delete_parker', id=parker.id)}}" title="Delete Parker">DELETE</a></div></td></td>#}
-      </tr>
-      {% endfor %} 
-    </tbody>
-  </table>
-  {% else %}
-  <div class="row ">
-      <div class="column login">
-        <div class="row">
-          <div class="column">
-            <h5>Invoices</h5>
-          
-          </div>
-        </div>
-    <table class="ui selectable inverted table fixed">
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Amount Due</th>
-            <th>Link</th>
-            <th>PDF</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for invoice in invoices %}
-          <tr>
-            <td>{{invoice.object}}</td>
-            <td>{{invoice.description}}</td>
-            <td>$ {{invoice.amount_due / 100}} </td>
-            <td><div><a class="item" href="{{invoice.hosted_invoice_url}}">Invoice Link</a></div></td>
-            <td><div><a class="item" href="{{invoice.invoice_pdf}}">Invoice PDF</a></div></td>
-            <!-- <td>Approved</td> -->
-        </td>
-          </tr>
-          {% endfor %} 
-        </tbody>
-      </table>
-  {% endif %}
+  <thead>
+    <tr>
+      <th>Invoices</th>
+      <th class="right aligned">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for invoice in invoices %}
+    <tr>
+      <td>{{invoice.id}}</td>
+    </tr>
+    {% endfor %} 
+  </tbody>
+</table>
+{% else %}
+<div class="row ">
+  <div class="column login">
+    <table class="ui selectable inverted table">
+      <thead>
+        <tr>
+          <th class="left aligned unstackable">Type</th>
+          <th class="left aligned unstackable">Description</th>
+          <th class="left aligned unstackable">Amount Due</th>
+          <th class="left aligned unstackable">Link</th>
+          <th class="left aligned unstackable">PDF</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for invoice in invoices %}
+        <tr>
+          <td class="left aligned">{{invoice.object}}</td>
+          <td class="left aligned">{{invoice.description}}</td>
+          <td class="left aligned">$ {{invoice.amount_due / 100}} </td>
+          <td class="right aligned"><a class="ui violet inverted button" href="{{invoice.hosted_invoice_url}}">Invoice Link</a></td>
+          <td class="right aligned"><a class="ui blue inverted button" href="{{invoice.invoice_pdf}}">Invoice PDF</a></td>
+        </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+  </div>  
+</div>  
+{% endif %}
 {% endblock %}

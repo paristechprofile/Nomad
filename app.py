@@ -4,6 +4,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_basicauth import BasicAuth
 from flask_bcrypt import check_password_hash
 import json
+import requests
 import models
 import forms
 from flask_bootstrap import Bootstrap
@@ -57,7 +58,6 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-
 # Authentication
 @app.route('/admin')
 @basic_auth.required
@@ -68,26 +68,53 @@ def secret_view():
 def signup():
   form = forms.RegisterForm()
   if form.validate_on_submit():
+    try:
+      stripe_id = stripe.Customer.create(
+        email=form.email.data
+      ).id
+      pass
+    except stripe.error.CardError as e:
+      # Since it's a decline, stripe.error.CardError will be caught
+      body = e.json_body
+      err  = body.get('error', {})
+      print ("Status is: %s" % e.http_status)
+      print ("Type is: %s" % err.get('type'))
+      print ("Code is: %s" % err.get('code'))
+      # param is '' in this case
+      print ("Param is: %s" % err.get('param'))
+      print ("Message is: %s" % err.get('message'))
+    except stripe.error.RateLimitError as e:
+      # Too many requests made to the API too quickly
+      pass
+    except stripe.error.InvalidRequestError as e:
+      # Invalid parameters were supplied to Stripe's API
+      pass
+    except stripe.error.AuthenticationError as e:
+      # Authentication with Stripe's API failed
+      # (maybe you changed API keys recently)
+      pass
+    except stripe.error.APIConnectionError as e:
+      # Network communication with Stripe failed
+      pass
+    except stripe.error.StripeError as e:
+      # Display a very generic error to the user, and maybe send
+      # yourself an email
+      pass
+    except Exception as e:
+      # Something else happened, completely unrelated to Stripe
+      pass
     models.User.create_user(
       team_id=1,
       username=form.username.data,
       password=form.password.data,
-      email=form.email.data
-      )
+      email=form.email.data,
+      stripe_id=stripe_id
+    )
     flash("You're signed up, now just log-in", "success")
     return redirect(url_for('login'))
   else:
     flash("ERROR", "error")
   return render_template('signup.html', form=form)
-  # user = models.User.select().order_by(models.User.id.desc()).get()
-    # stripe.Customer.create(
-    #   description="Test creating a customer",
-    #   email=user.email 
-    # )
-    # flash("You're signed up, now just log-in", "success")
-    # print(user)
-    # print(user.email)
-
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
@@ -210,7 +237,6 @@ def new_parker():
       flash('You added a new parker')
       return redirect(url_for('parkers'))
     else:
-      flash('Error adding a new parker')
       return render_template('parkers_new_parker.html', form=form)
   else:
     if form.validate_on_submit():
@@ -233,7 +259,6 @@ def new_parker():
       flash('You added a new parker')
       return redirect(url_for('parkers'))
     else:
-      flash('Error adding a new parker')
       return render_template('parkers_new_parker.html', form=form)
 
 @app.route('/parkers/<id>/', methods=['GET', 'POST'])
@@ -276,13 +301,16 @@ def delete_parker(id):
       flash('Error deleting the parker')
   else:
     parker_param = int(id)
-    parker = models.Parker.get_or_none(parker_param)
-    if str(parker.id) == str(parker_param):
-      parker.delete_instance()
-      flash('You deleted the parker')
-      return redirect(url_for('parkers'))
+    parker = models.Parker.get(models.Parker.id == parker_param)
+    vehicle = models.Vehicle.get_or_none(models.Vehicle.parker_id == parker_param)
+    if vehicle:
+      if str(parker.id) == str(parker_param):
+        vehicle.delete_instance()
+        parker.delete_instance()
+        flash('You deleted the parker')
+        return redirect(url_for('parkers'))
     else: 
-      flash('Error deleting the parker')
+      parker.delete_instance()
   return redirect(url_for('parkers'))
 
 # Vehicle views
@@ -313,7 +341,6 @@ def add_vehicle(id):
       )
     flash('You added a vehicle')
     return redirect(url_for('parkers'))
-  flash('Error adding a vehicle')
   return render_template('vehicles_new_vehicle.html', vehicle=vehicle, parker=parker, form=form)
 
 @app.route('/vehicles/<id>/', methods=['GET', 'POST'])
@@ -483,124 +510,128 @@ def get_invoices():
 
 
 if 'ON_HEROKU' in os.environ:
-  print('hitting ')
+  print('hitting')
   models.initialize()
 
 if __name__ == '__main__':
   models.initialize()
-  try:
-    models.Team.create_team(
-      name = 'Nomad',
-      point_of_contact = 'Paris Taylor',
-      phone = '512.987.7556',
-      email = 'paris@nomadparking.space'
-    )
-    models.Team.create_team(
-      name = 'Preacher',
-      point_of_contact = 'John',
-      phone = '512.999.9999',
-      email = 'john@preacher.com'
-    )
-    models.User.create_user(
-      username='paris',
-      email='fake@gmail.com',
-      password='whynot',
-      admin=True,
-      team_id= 1
-    )
-    models.User.create_user(
-      username='Amanda',
-      email='amanda@preacher.com',
-      password='pencil',
-      admin=False,
-      team_id= 2
-    )
-    models.User.create_user(
-      username='John',
-      email='john@preacher.com',
-      password='pencil',
-      admin=False,
-      team_id= 2
-    )
-    models.Facility.create_facility(
-      name="Littlefield",
-      email="premier@gmail.com",
-      address="800 Brazos",
-      lat=37.7648532,
-      long=-122.4222631
-    )
-    models.Facility.create_facility(
-      name="Post Office",
-      email="laz@gmail.com",
-      address="400 congress",
-      lat=37.7647382,
-      long=-122.3883884
-    )
-    models.Vehicle.create_vehicle(
-      year = "2009",
-      make = "VW",
-      model = "Jetta",
-      color = "slate",
-      license_plate = "3894hf",
-      license_state = "TX",
-      facility_id=1,
-      parker_id=1
-    )
-    models.Vehicle.create_vehicle(
-      year = "2009",
-      make = "Ford",
-      model = "Escort",
-      color = "grey",
-      license_plate = "2984hf",
-      license_state = "CA",
-      facility_id=2,
-      parker_id=1
-    )
-    models.Vehicle.create_vehicle(
-      year = "2014",
-      make = "Mercedes",
-      model = "AMG",
-      color = "blue",
-      license_plate = "0394fb",
-      license_state = "TX",
-      facility_id=3,
-      parker_id=1
-    )
-    models.Vehicle.create_vehicle(
-      year = "2019",
-      make = "BWM",
-      model = "335i",
-      color = "silver",
-      license_plate = "24on44",
-      license_state = "TX",
-      facility_id=4,
-      parker_id=1
-    )
-    models.Parker.create_parker(
-      team_id = 1,
-      user_id =1,
-      name = "Paris",
-      email = "paris@gmail.com"
-    )
-    models.Parker.create_parker(
-      team_id = 2,
-      user_id =2,
-      name = "Amanda",
-      email = "amanda@preacher.com"
-    )
-    models.Parker.create_parker(
-      team_id = 2,
-      user_id =3,
-      name = "John",
-      email = "john@preacher.com"
-    )
-    models.Parker.create_parker(
-      team_id = 2,
-      user_id =4,
-      name = "Krystle",
-      email = "Krystle@preacher.com"
-    )
+  # try:
+    # models.Team.create_team(
+    #   name = 'Nomad',
+    #   point_of_contact = 'Paris Taylor',
+    #   phone = '512.987.7556',
+    #   email = 'paris@nomadparking.space'
+    # )
+    # models.Team.create_team(
+    #   name = 'Preacher',
+    #   point_of_contact = 'John',
+    #   phone = '512.999.9999',
+    #   email = 'john@preacher.com'
+    # )
+    # models.User.create_user(
+    #   username='paris',
+    #   email='paris@nomadparking.space',
+    #   password='whynot',
+    #   admin=True,
+    #   team_id= 1,
+    #   stripe_id='1'
+    # )
+    # models.User.create_user(
+    #   username='Amanda',
+    #   email='amanda@preacher.com',
+    #   password='pencil',
+    #   admin=False,
+    #   team_id= 2,
+    #   stripe_id='2'
+    # )
+    # models.User.create_user(
+    #   username='John',
+    #   email='john@preacher.com',
+    #   password='pencil',
+    #   admin=False,
+    #   team_id= 2,
+    #   stripe_id='3'
+    # )
+    # models.Facility.create_facility(
+    #   name="Post Office",
+    #   email="laz@gmail.com",
+    #   address="400 congress",
+    #   lat=37.7647382,
+    #   long=-122.3883884
+    # )
+    # models.Facility.create_facility(
+    #   name="Littlefield",
+    #   email="premier@gmail.com",
+    #   address="800 Brazos",
+    #   lat=37.7648532,
+    #   long=-122.4222631
+    # )
+    # models.Parker.create_parker(
+    #   team_id = 1,
+    #   user_id =1,
+    #   name = "Paris",
+    #   email = "paris@nomadparking.com"
+    # )
+    # models.Parker.create_parker(
+    #   team_id = 2,
+    #   user_id =2,
+    #   name = "Amanda",
+    #   email = "amanda@preacher.com"
+    # )
+    # models.Parker.create_parker(
+    #   team_id = 2,
+    #   user_id =3,
+    #   name = "John",
+    #   email = "john@preacher.com"
+    # )
+    # models.Parker.create_parker(
+    #   team_id = 2,
+    #   user_id =4,
+    #   name = "Krystle",
+    #   email = "Krystle@preacher.com"
+    # )
 
-  except ValueError:
-    pass
+    # models.Vehicle.create_vehicle(
+    #   year = "2009",
+    #   make = "VW",
+    #   model = "Jetta",
+    #   color = "slate",
+    #   license_plate = "3894hf",
+    #   license_state = "TX",
+    #   facility_id=1,
+    #   parker_id=2
+    # )
+    # models.Vehicle.create_vehicle(
+    #   year = "2009",
+    #   make = "Ford",
+    #   model = "Escort",
+    #   color = "grey",
+    #   license_plate = "2984hf",
+    #   license_state = "CA",
+    #   facility_id=2,
+    #   parker_id=3
+    # )
+    # models.Vehicle.create_vehicle(
+    #   year = "2014",
+    #   make = "Mercedes",
+    #   model = "AMG",
+    #   color = "blue",
+    #   license_plate = "0394fb",
+    #   license_state = "TX",
+    #   facility_id=2,
+    #   parker_id=2
+    # )
+    # models.Vehicle.create_vehicle(
+    #   year = "2019",
+    #   make = "BWM",
+    #   model = "335i",
+    #   color = "silver",
+    #   license_plate = "24on44",
+    #   license_state = "TX",
+    #   facility_id=2,
+    #   parker_id=1
+    # )
+
+  # except ValueError:
+  #   pass
   app.run(debug=DEBUG, port=PORT)

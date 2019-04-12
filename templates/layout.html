@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  {# Made By Paris Taylor #}
   <title></title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='semantic/dist/semantic.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.1/mapbox-gl.css' rel='stylesheet' />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -32,18 +32,17 @@
     {% endif %}
   </div>
   <div class="pusher">
-      
-            <div class="row">
-              <div class="column">
-                {% with messages = get_flashed_messages(with_categories=True) %}
-                {% if messages %}
-                  {% for category, message in messages %}
-                  <div class={{category}}>{{ message }}</div>
-                  {% endfor %}
-                {% endif %}
-                {% endwith %}
-              </div>
-            </div>
+    <div class="row">
+      <div class="column">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+          {% for category, message in messages %}
+          <div class={{category}}>{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+      </div>
+    </div>
     <div class="ui borderless menu">
       <a class="item" href="{{url_for('index')}}" title="Nomad"><i class="fas fa-2x fa-bars"></i></a>
       <a class="item" href="{{url_for('index')}}" title="Nomad"><img src="/static/img/logo1.png" class="logo"></img></a>
@@ -53,13 +52,11 @@
       </div>
       {% else %}
         <a class="item" href="{{url_for('login')}}" title="login"><b>Login</b></a>    
-        <a class="item" href="{{url_for('signup')}}" title="signup"><div class="ui primary button signup" title="signup">Sign Up</div></a>
+        <a class="item" href="{{url_for('signup')}}" title="signup"><div class="ui button" id="submit" title="signup">Sign Up</div></a>
       </div>
       {% endif %}
-      
     </div>
-    
-      {% block content %}{% endblock %} 
+    {% block content %}{% endblock %} 
     <footer>
     </footer>
   </div>
