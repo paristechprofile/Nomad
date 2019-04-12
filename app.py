@@ -515,26 +515,26 @@ if 'ON_HEROKU' in os.environ:
 if __name__ == '__main__':
   models.initialize()
   try:
-    models.Team.create_team(
-      name = 'Nomad',
-      point_of_contact = 'Paris Taylor',
-      phone = '512.987.7556',
-      email = 'paris@nomadparking.space'
-    )
-    models.Team.create_team(
-      name = 'Preacher',
-      point_of_contact = 'John',
-      phone = '512.999.9999',
-      email = 'john@preacher.com'
-    )
-    models.User.create_user(
-      username='paris',
-      email='paris@nomadparking.space',
-      password='whynot',
-      admin=True,
-      team_id= 1,
-      stripe_id='1'
-    )
+    # models.Team.create_team(
+    #   name = 'Nomad',
+    #   point_of_contact = 'Paris Taylor',
+    #   phone = '512.987.7556',
+    #   email = 'paris@nomadparking.space'
+    # )
+    # models.Team.create_team(
+    #   name = 'Preacher',
+    #   point_of_contact = 'John',
+    #   phone = '512.999.9999',
+    #   email = 'john@preacher.com'
+    # )
+    # models.User.create_user(
+    #   username='paris',
+    #   email='paris@nomadparking.space',
+    #   password='whynot',
+    #   admin=True,
+    #   team_id= 1,
+    #   stripe_id='1'
+    # )
     models.User.create_user(
       username='Amanda',
       email='amanda@preacher.com',
