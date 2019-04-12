@@ -2,18 +2,10 @@
 {% from 'macros.html' import render_field%}
 {% block content %}
 
-<div class="row ">
-    <div class="column login">
-      <div class="row">
-        <div class="column">
-          <h2>Edit Facility</h2>  
-          
-            <div class={{category}}>{{ message }}</div>
-          
-        </div>
-      </div>
-<div class='column1' >
-    <form  method="POST" action="" novalidate>
+<div class="ui inverted segment login">
+    <div class="ui inverted form">
+      <div class="field">
+        <form method="POST" class="form" action="">
       {{ form.hidden_tag() }} 
       <div class="field">
       {{ form.name.label(class_="label")}}
@@ -35,9 +27,11 @@
       {{ form.long.label(class_="label") }}
       {{ form.long(class_="input", placeholder=facility.long, id="facilityLong")}}
       </div>
-      <div class="field">
-      {{ form.submit(class_="button") }}
-      </div>
-    </form>
+      <div class="row">
+          <button class="ui button" type="submit" id="submit"><b>Save</b></button>
+        </div>
+      </form>
+    </div>
   </div>
+</div>  
 {% endblock %}

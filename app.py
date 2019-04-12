@@ -196,8 +196,7 @@ def new_team():
       flash('You created a new team')
       return redirect(url_for('teams'))
     else:
-      flash('Error creating a new team')
-  return render_template('teams_new_team.html', form=form)
+      return render_template('teams_new_team.html', form=form)
 
 # Parker views
 @app.route('/parkers')
@@ -281,7 +280,6 @@ def edit_parkers(id):
     flash('You saved the edited parker')
     return redirect(url_for('parkers'))
   else: 
-    flash('Error editing the parker')
     return render_template("parkers_edit.html", parker=parker, vehicle=vehicle, form=form)
 
 @app.route('/parkers/<id>/delete', methods=['GET', 'POST'])

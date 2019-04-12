@@ -62,10 +62,8 @@ button {
   background-color: #2d3ba6 !important;
 }
 .mapboxgl-popup-content,.mapboxgl-popup-tip{
-  
-  background: black !important;
-  border-top-color: black !important;
-  
+  border-top-color: white !important;
+  color: black !important;
 }
 #map{
   height: 700px !important;
