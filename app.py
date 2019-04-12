@@ -224,7 +224,6 @@ def new_parker():
         user_id=current_user.id,
         )
       parker_id = models.Parker.select().order_by(models.Parker.id.desc()).get()
-      #test if parker create doesn't work. Check form. create an if/then 
       models.Vehicle.create(
         parker_id=parker_id.id,
         make = form.make.data.strip(),
@@ -589,49 +588,48 @@ if __name__ == '__main__':
     #   user_id =4,
     #   name = "Krystle",
     #   email = "Krystle@preacher.com"
-    # )
+    )
+    models.Vehicle.create_vehicle(
+      year = "2009",
+      make = "VW",
+      model = "Jetta",
+      color = "slate",
+      license_plate = "3894hf",
+      license_state = "TX",
+      facility_id=1,
+      parker_id=2
+    )
+    models.Vehicle.create_vehicle(
+      year = "2009",
+      make = "Ford",
+      model = "Escort",
+      color = "grey",
+      license_plate = "2984hf",
+      license_state = "CA",
+      facility_id=2,
+      parker_id=3
+    )
+    models.Vehicle.create_vehicle(
+      year = "2014",
+      make = "Mercedes",
+      model = "AMG",
+      color = "blue",
+      license_plate = "0394fb",
+      license_state = "TX",
+      facility_id=2,
+      parker_id=2
+    )
+    models.Vehicle.create_vehicle(
+      year = "2019",
+      make = "BWM",
+      model = "335i",
+      color = "silver",
+      license_plate = "24on44",
+      license_state = "TX",
+      facility_id=2,
+      parker_id=1
+    )
 
-    # models.Vehicle.create_vehicle(
-    #   year = "2009",
-    #   make = "VW",
-    #   model = "Jetta",
-    #   color = "slate",
-    #   license_plate = "3894hf",
-    #   license_state = "TX",
-    #   facility_id=1,
-    #   parker_id=2
-    # )
-    # models.Vehicle.create_vehicle(
-    #   year = "2009",
-    #   make = "Ford",
-    #   model = "Escort",
-    #   color = "grey",
-    #   license_plate = "2984hf",
-    #   license_state = "CA",
-    #   facility_id=2,
-    #   parker_id=3
-    # )
-    # models.Vehicle.create_vehicle(
-    #   year = "2014",
-    #   make = "Mercedes",
-    #   model = "AMG",
-    #   color = "blue",
-    #   license_plate = "0394fb",
-    #   license_state = "TX",
-    #   facility_id=2,
-    #   parker_id=2
-    # )
-    # models.Vehicle.create_vehicle(
-    #   year = "2019",
-    #   make = "BWM",
-    #   model = "335i",
-    #   color = "silver",
-    #   license_plate = "24on44",
-    #   license_state = "TX",
-    #   facility_id=2,
-    #   parker_id=1
-    # )
-
-  # except ValueError:
-  #   pass
+  except ValueError:
+    pass
   app.run(debug=DEBUG, port=PORT)

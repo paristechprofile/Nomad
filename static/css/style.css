@@ -69,7 +69,8 @@ button {
 }
 #map{
   height: 400px !important;
-  width:100%!important;
+  width:10
+  0%!important;
 }
 .geocoder-icon-close {
   width: 15px;
