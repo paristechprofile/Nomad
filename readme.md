@@ -23,10 +23,11 @@ Higher fidelity mockups by Zoe Powell
 ## Database Structure and ERD
 
 ![](https://trello-attachments.s3.amazonaws.com/5c9e5c46d1c46c1b12f5eb85/915x801/ae42d90734adf457083479cbd3a7b22d/Screen_Shot_2019-04-12_at_3.58.59_AM.png)
+My original ERD
 
 The database for this project utilizes 5 different interconnected tables, including an external stripe database. Every user that signs up, technically becomes a Customer object in Stripe to allow for future invoices or subscription sign-ups. An admin can sign up a team and point of contact. That client team lead can manage parking for their entire team and retrieve or download invoices with ease. Admins routes and authentication ensures admins control what users can see and do in the app. 
 
-## Challenges and Wins:
+## Blockers and Solutions:
 - Taking a single form and saving data to multiple locations
 - Creating an elegant way to immediately save a Parker id as a variable to then store as foreign key to a Vehicle table without superfluous url params
 - Creating a user in stripe first to save a stripe customer id in the User table
@@ -35,8 +36,10 @@ The database for this project utilizes 5 different interconnected tables, includ
 
 ## Coding challenges I learned from
 ![](https://trello-attachments.s3.amazonaws.com/5c9da5af51595772c0571c59/5cb0735b28261f0f0e2bd885/2159efbdfb1d656acd304c63009f1568/Screen_Shot_2019-04-12_at_2.38.22_AM.png)
+Stripe Customer account on user sign-up. Including smart error handling
 
 ![](https://trello-attachments.s3.amazonaws.com/5c9da5af51595772c0571c59/5cb0735b28261f0f0e2bd885/8def22f81e7ca3550605beb2492f5ee9/Screen_Shot_2019-04-12_at_2.39.31_AM.png)
+Using one form to save to multiple tables without superfluous param ids
 
 ## Future Iterations
 This is not a project that ends here. I'm working hard to implement new features throughout the next two weeks to maximize the impact of this MVP. I've conducted user research with my current clients excited to try out the new product. This product exists based on our wish list conversations, and I'm looking forward to the alpha and beta tests with my clients later this month.
