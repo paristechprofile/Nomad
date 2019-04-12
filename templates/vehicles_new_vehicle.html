@@ -3,17 +3,22 @@
 
 {% block content %}
 
-<div class="row ">
-  <div class="column login">
-    <div class="row">
-      <div class="column">
-  
-      </div>
+<div class="ui inverted segment login">
+  <div class="ui inverted form">
+    <div class="field">
+      <form method="POST" class="form" action="">
+        {{ form.hidden_tag() }}
+          {% for field in form %}
+        {% if field.widget.input_type != 'hidden' %} 
+        {{ field.label }} 
+          {% endif %}  
+        {{ render_field(field) }}
+          {% endfor %}
+        <div class="row">
+          <button class="ui button" type="submit" id="submit"><b>Save</b></button>
+        </div>
+      </form>
     </div>
-<form method="POST" action="" class="form">
-  {{ form.hidden_tag() }}
-  {% for field in form %}
-    {{ render_field(field) }}
-  {% endfor %}
-</form>
+  </div>
+</div>  
 {% endblock %}

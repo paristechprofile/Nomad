@@ -68,9 +68,14 @@ button {
   
 }
 #map{
-  height: 400px !important;
-  width:10
-  0%!important;
+  height: 700px !important;
+  width:100%!important;
+}
+#mapButton {
+  margin-top: -1rem;
+  margin-bottom: 0rem !important;
+  margin-left: -1rem;
+  margin-right: 0rem !important;
 }
 .geocoder-icon-close {
   width: 15px;

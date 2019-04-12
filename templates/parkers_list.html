@@ -7,17 +7,19 @@
     <table class="ui selectable inverted table">
       <thead>
         <tr>
-          <th class="right aligned unstackable"><a class="item ui inverted button" href="{{url_for('new_parker')}}" title="Add Parker">Add Parker</a></th>
           <th class="left aligned unstackable">Id</th>
+          <th class="left aligned unstackable">Team</th>
           <th class="left aligned unstackable">Name</th>
           <th class="left aligned unstackable">Email</th>
           <th class="left aligned unstackable"></th>
+          <th class="right aligned unstackable"><a class="item ui inverted button" href="{{url_for('new_parker')}}" title="Add Parker">Add Parker</a></th>
         </tr>
       </thead>
       <tbody>
         {% for parker in parkers %}
         <tr>
           <td class="left aligned unstackable">{{parker.id}}</td>
+          <td class="left aligned unstackable">{{parker.team_id}}</td>
           <td class="left aligned unstackable">{{parker.name}}</td>
           <td class="left aligned unstackable">{{parker.email}}</td>
           <td class="left aligned unstackable"></td>

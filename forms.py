@@ -61,7 +61,7 @@ class Edit_Team_Form(Form):
   point_of_contact = StringField('Point of Contact')
   phone = StringField('Phone')
   email = StringField('Email')
-  submit = SubmitField('Save')
+
 
 class New_Parker_Form(Form):
   name = StringField('Name')
@@ -82,7 +82,6 @@ class Edit_Parker_Form(Form):
   color = StringField('Color')
   license_plate = StringField('License Plate')
   license_state = StringField('License State')
-  submit = SubmitField('Save')
   
 class New_Vehicle_Form(Form):
   make = StringField('Make')
@@ -91,7 +90,6 @@ class New_Vehicle_Form(Form):
   color = StringField('Color')
   license_plate = StringField('License Plate')
   license_state = StringField('License State')
-  submit = SubmitField('Save')
   
 class New_Facility_Form(Form):
   name = StringField('Name')
@@ -106,4 +104,4 @@ class Admin_Edit_Facility_Form(Form):
   address = StringField('Address')
   lat = StringField('Lat')
   long = StringField('Long')
-  submit = SubmitField('Save')
+  

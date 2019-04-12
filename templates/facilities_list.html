@@ -8,7 +8,6 @@
 <table class="ui selectable inverted table">
   <thead>
     <tr>
-      <th class="right aligned unstackable"><a class="item ui inverted button" href="{{url_for('map_view')}}" title="Map View">Map View</a></th>
       <th class="left aligned unstackable">Facility Id</th>
       <th class="left aligned unstackable">Name</th>
       <th class="left aligned unstackable">Email</th>
@@ -16,6 +15,7 @@
       <th class="left aligned unstackable">Contact</th>
       <th class="left aligned unstackable">In use</th>
       <th class="left aligned unstackable">Available</th>
+      <th class="right aligned unstackable"><a class="item ui inverted button" href="{{url_for('new_facility')}}" title="Add Facility">Add Facility</a><a class="item ui inverted secondary button" href="{{url_for('map_view')}}" title="Map View">Map View</a></th>
     </tr>
   </thead>
   <tbody>

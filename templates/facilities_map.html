@@ -2,9 +2,14 @@
 {% from 'macros.html' import render_field%}
 {% block content %}
 <div class="row ">
-  <div class="column login">
-    <table class="ui selectable inverted table">
-    <a class="right floated item ui inverted button" href="{{url_for('facilities')}}" title="List View">List View</a>
+  <div class="column selectable login">
+    <table class="left aligned  ui selectable inverted table">
+  </div>
+</div>
+<div class="ui centered grid" id="mapButton">
+  <div class="one column row">
+      <a class="center aligned  item ui secondary  inverted button" href="{{url_for('facilities')}}" title="List View">List View</a>
+    </div>
   </div>
 <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.min.js'></script>
 <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.0.0/mapbox-gl-geocoder.css' type='text/css' />
