@@ -286,25 +286,33 @@ def delete_parker(id):
   if current_user.is_admin: 
     parker_param = int(id)
     parker = models.Parker.get(models.Parker.id == parker_param)
-    vehicle = models.Vehicle.get(models.Vehicle.parker_id == parker_param)
+    vehicle = models.Vehicle.delete().where(models.Vehicle.parker_id == parker_param)
     if str(parker.id) == str(parker_param):
-      vehicle.delete_instance()
+      vehicle.execute()
       parker.delete_instance()
       flash('You deleted the parker')
       return redirect(url_for('parkers'))
+    else:
+      if parker:
+        if str(parker.id) == str(parker_param):
+          parker.delete_instance()
+          flash('You deleted the parker')
+          return redirect(url_for('parkers'))
   else:
     parker_param = int(id)
     parker = models.Parker.get(models.Parker.id == parker_param)
-    vehicle = models.Vehicle.get_or_none(models.Vehicle.parker_id == parker_param)
-    if vehicle:
-      if str(parker.id) == str(parker_param):
-        vehicle.delete_instance()
-        parker.delete_instance()
-        flash('You deleted the parker')
-        return redirect(url_for('parkers'))
-    else: 
+    vehicle = models.Vehicle.delete().where(models.Vehicle.parker_id == parker_param)
+    if str(parker.id) == str(parker_param):
+      vehicle.execute()
       parker.delete_instance()
-  return redirect(url_for('parkers'))
+      flash('You deleted the parker')
+      return redirect(url_for('parkers'))
+    else:
+      if parker:
+        if str(parker.id) == str(parker_param):
+          parker.delete_instance()
+          flash('You deleted the parker')
+          return redirect(url_for('parkers'))
 
 # Vehicle views
 @app.route('/vehicles')
