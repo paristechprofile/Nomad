@@ -6,8 +6,8 @@ from flask_bcrypt import generate_password_hash
 from playhouse.db_url import connect
 from flask import g
 
-# DATABASE = connect(os.environ.get('DATABASE_URL'))
-DATABASE = PostgresqlDatabase('nomad')
+DATABASE = connect(os.environ.get('DATABASE_URL'))
+# DATABASE = PostgresqlDatabase('nomad')
 # DATABASE = SqliteDatabase('nomad.db') #local sqlitebackup if postgres is buggy
 
 class Team(Model):
