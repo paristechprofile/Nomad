@@ -43,7 +43,7 @@
           <th class="left aligned unstackable">Address</th>
           <th class="left aligned unstackable">In use</th>
           <th class="left aligned unstackable">Available</th>
-          <th class="left aligned unstackable">Actions</th>
+          <th class="right aligned unstackable"><a class="item ui inverted secondary button" href="{{url_for('map_view')}}" title="Map View">Map View</a></th>
         </tr>
       </thead>
       <tbody>
@@ -53,7 +53,7 @@
           <td class="left aligned unstackable">{{facility.address}}</td>
           <td class="left aligned unstackable">32</td>
           <td class="left aligned unstackable">5</td>
-          <td class="left aligned unstackable"">None</td>
+          <td class="right aligned unstackable""></td>
         </tr>
         {% endfor %} 
       </tbody>
