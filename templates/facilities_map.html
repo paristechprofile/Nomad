@@ -30,12 +30,12 @@ var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/paristechprofile/cjud3eo8p0gk91fmwlzshmt27',
   center: [-97.7437,30.2711],
-  zoom: 14,
+  zoom: 15,
   pitch:15
 });
 map.on('click', function(e) {
   var features = map.queryRenderedFeatures(e.point, {
-    layers: ['parking-spots'] // replace this with the name of the layer
+    layers: ['parking-spots (1)'] // replace this with the name of the layer
   });
 
   if (!features.length) {
@@ -44,7 +44,7 @@ map.on('click', function(e) {
   var feature = features[0];
   var popup = new mapboxgl.Popup({ offset: [0, -15] })
     .setLngLat(feature.geometry.coordinates)
-    .setHTML('<h3>' + feature.properties.description + '</h3><p>' + '<p>' + feature.properties.place_name  + '</p>' + '<h5>'+  '$' + feature.properties.price + '/month'+ '</h5>')
+    .setHTML('<h3>' + feature.properties.description + '</h3><p>' + '<p>' + feature.properties.place_name  + '</p>' + '<h5>'+ feature.properties.price + '</h5>')
     .setLngLat(feature.geometry.coordinates)
     .addTo(map);
 });
