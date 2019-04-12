@@ -543,14 +543,14 @@ if __name__ == '__main__':
     #   team_id= 2,
     #   stripe_id='2'
     # )
-    models.User.create_user(
-      username='John',
-      email='john@preacher.com',
-      password='pencil',
-      admin=False,
-      team_id= 2,
-      stripe_id='3'
-    )
+    # models.User.create_user(
+    #   username='John',
+    #   email='john@preacher.com',
+    #   password='pencil',
+    #   admin=False,
+    #   team_id= 2,
+    #   stripe_id='3'
+    # )
     models.Facility.create_facility(
       name="Post Office",
       email="laz@gmail.com",
