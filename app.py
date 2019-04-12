@@ -535,14 +535,14 @@ if __name__ == '__main__':
     #   team_id= 1,
     #   stripe_id='1'
     # )
-    models.User.create_user(
-      username='Amanda',
-      email='amanda@preacher.com',
-      password='pencil',
-      admin=False,
-      team_id= 2,
-      stripe_id='2'
-    )
+    # models.User.create_user(
+    #   username='Amanda',
+    #   email='amanda@preacher.com',
+    #   password='pencil',
+    #   admin=False,
+    #   team_id= 2,
+    #   stripe_id='2'
+    # )
     models.User.create_user(
       username='John',
       email='john@preacher.com',
