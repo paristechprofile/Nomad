@@ -164,8 +164,7 @@ def edit_teams(id):
       flash('You successfully saved the edited team')
       return redirect(url_for('teams'))
     else: 
-      flash('Error saving team to database')
-    return render_template("teams_edit.html", team=team,form=form)
+      return render_template("teams_edit.html", team=team,form=form)
 
 @app.route('/teams/<id>/delete', methods=['GET', 'POST'])
 @login_required
@@ -178,8 +177,7 @@ def delete_team(id):
       flash('You deleted the team')
       return redirect(url_for('teams'))
     else: 
-      flash('Error deleting the team')
-  return redirect(url_for('teams'))
+      return redirect(url_for('teams'))
 
 @app.route('/new_team', methods=['GET', 'POST'])
 @login_required
@@ -294,8 +292,6 @@ def delete_parker(id):
       parker.delete_instance()
       flash('You deleted the parker')
       return redirect(url_for('parkers'))
-    else: 
-      flash('Error deleting the parker')
   else:
     parker_param = int(id)
     parker = models.Parker.get(models.Parker.id == parker_param)
@@ -357,7 +353,6 @@ def edit_vehicles(id):
     flash('You saved the edited vehicle')
     return redirect(url_for('vehicles'))
   else: 
-    flash('Error editing the vehicle')
     return render_template("vehicles_edit.html", vehicle=vehicle, form=form)
 
 @app.route('/vehicles/<id>/delete', methods=['GET', 'POST'])
@@ -370,8 +365,6 @@ def delete_vehicle(id):
       vehicle.delete_instance()
       flash('You deleted the vehicle')
       return redirect(url_for('vehicles'))
-    else: 
-      flash('Error deleting the vehicle')
   else:
     vehicle_param = int(id)
     vehicle = models.Vehicle.get_or_none(vehicle_param)
@@ -380,8 +373,7 @@ def delete_vehicle(id):
       flash('You deleted the vehicle')
       return redirect(url_for('vehicles'))
     else: 
-      flash('Error deleting the vehicle')
-  return redirect(url_for('vehicles'))
+      return redirect(url_for('vehicles'))
 
 # Facility views  
 @app.route('/space')
@@ -413,7 +405,6 @@ def edit_facility(id):
       flash('You saved the edited facility')
       return redirect(url_for('facilities'))
     else: 
-      flash('Error editing the facility')
       return render_template("facilities_edit.html", facility=facility,form=form)
 
 @app.route('/space/<id>/delete', methods=['GET', 'POST'])
@@ -427,7 +418,6 @@ def delete_facility(id):
       flash('You deleted the facility')
       return redirect(url_for('facilities'))
     else: 
-      flash('Error deleting the facility')
       return redirect(url_for('facilities'))
 
 @app.route('/new_facility',methods=['GET', 'POST'])
@@ -446,7 +436,6 @@ def new_facility():
       flash('You created a new facility')
       return redirect(url_for('facilities'))
     else: 
-      flash('Error creating a new facility')
       return render_template('facilities_new_facility.html', form=form)
 
 # Stripe integration
