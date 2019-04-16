@@ -25,6 +25,8 @@
     {% endfor %} 
   </tbody>
 </table>
+</div>  
+</div>  
 {% else %}
 <div class="row ">
   <div class="column login">
@@ -34,18 +36,20 @@
           <th class="left aligned unstackable">Type</th>
           <th class="left aligned unstackable">Description</th>
           <th class="left aligned unstackable">Amount Due</th>
-          <th class="left aligned unstackable">Link</th>
-          <th class="left aligned unstackable">PDF</th>
+          <th class="left aligned unstackable">Customer Id</th>
+          <th class="center aligned unstackable">Link</th>
+          <th class="center aligned unstackable">PDF</th>
         </tr>
       </thead>
       <tbody>
         {% for invoice in invoices %}
         <tr>
-          <td class="left aligned">{{invoice.object}}</td>
-          <td class="left aligned">{{invoice.description}}</td>
-          <td class="left aligned">$ {{invoice.amount_due / 100}} </td>
-          <td class="right aligned"><a class="ui violet inverted button" href="{{invoice.hosted_invoice_url}}">Invoice Link</a></td>
-          <td class="right aligned"><a class="ui blue inverted button" href="{{invoice.invoice_pdf}}">Invoice PDF</a></td>
+          <td class="left aligned unstackable">{{invoice.object}}</td>
+          <td class="left aligned unstackable">{{invoice.description}}</td>
+          <td class="left aligned unstackable">$ {{invoice.amount_due / 100}} </td>
+          <td class="left aligned unstackable">{{current_user.stripe_id}}</td>
+          <td class="center aligned unstackable"><a class="ui violet inverted button" href="{{invoice.hosted_invoice_url}}"  target="_blank">Invoice Link</a></td>
+          <td class="center aligned unstackable"><a class="ui blue inverted button" href="{{invoice.invoice_pdf}}">Invoice PDF</a></td>
         </tr>
         {% endfor %} 
       </tbody>

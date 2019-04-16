@@ -465,7 +465,8 @@ def pay():
 @app.route('/invoices', methods=['GET'])
 @login_required
 def get_invoices():
-  invoices = stripe.Invoice.list(limit=12)
+  
+  invoices = stripe.Invoice.list(customer="cus_EtTAg26poIOpw9", limit=12)
   try:
     # Use Stripe's library to make requests...
     pass
