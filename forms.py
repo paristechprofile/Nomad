@@ -66,8 +66,8 @@ class Edit_Team_Form(Form):
 class New_Parker_Form(Form):
   name = StringField('Name')
   email = StringField('Email')
-  make = StringField('Make')
   year = StringField('Year') 
+  make = StringField('Make')
   model = StringField('Model')
   color = StringField('Color')
   license_plate = StringField('License Plate')
@@ -76,16 +76,16 @@ class New_Parker_Form(Form):
 class Edit_Parker_Form(Form):
   name = StringField('Name')
   email = StringField('Email')
-  make = StringField('Make')
   year = StringField('Year') 
+  make = StringField('Make')
   model = StringField('Model')
   color = StringField('Color')
   license_plate = StringField('License Plate')
   license_state = StringField('License State')
   
 class New_Vehicle_Form(Form):
-  make = StringField('Make')
   year = StringField('Year') 
+  make = StringField('Make')
   model = StringField('Model')
   color = StringField('Color')
   license_plate = StringField('License Plate')

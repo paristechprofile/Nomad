@@ -121,7 +121,7 @@ class Vehicle(Model):
         year = year,
         make = make,
         model = model,
-        color =color,
+        color = color,
         license_plate =license_plate,
         license_state =license_state,
         facility_id=facility_id,

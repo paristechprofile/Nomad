@@ -21,9 +21,8 @@ PORT = 8000
 app = Flask(__name__, static_url_path='/static')
 basic_auth = BasicAuth(app)
 app.secret_key = '!ohy.ouf.ancyh.uh?'
-app.config['FLASK_ADMIN_SWATCH'] = 'darkly'
-app.config['BASIC_AUTH_USERNAME'] = 'abc'
-app.config['BASIC_AUTH_PASSWORD'] = '123'
+app.config['BASIC_AUTH_USERNAME'] = 'P@rks!'
+app.config['BASIC_AUTH_PASSWORD'] = 'nomad'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -58,13 +57,8 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
-# Authentication
-@app.route('/admin')
-@basic_auth.required
-def secret_view():
-  return render_template('home.html')
-
 @app.route('/signup', methods=('GET', 'POST'))
+@basic_auth.required
 def signup():
   form = forms.RegisterForm()
   if form.validate_on_submit():
@@ -113,8 +107,7 @@ def signup():
     flash("You're signed up, now just log-in", "success")
     return redirect(url_for('login'))
   else:
-    flash("ERROR", "error")
-  return render_template('signup.html', form=form)
+    return render_template('signup.html', form=form)
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
@@ -223,8 +216,8 @@ def new_parker():
       parker_id = models.Parker.select().order_by(models.Parker.id.desc()).get()
       models.Vehicle.create(
         parker_id=parker_id.id,
-        make = form.make.data.strip(),
         year = form.year.data.strip(),
+        make = form.make.data.strip(),
         model = form.model.data.strip(),
         color = form.color.data.strip(),
         license_plate=form.license_plate.data.strip(),
@@ -245,8 +238,8 @@ def new_parker():
       parker_id = models.Parker.select().order_by(models.Parker.id.desc()).get()
       models.Vehicle.create(
         parker_id=parker_id.id,
-        make = form.make.data.strip(),
         year = form.year.data.strip(),
+        make = form.make.data.strip(),
         model = form.model.data.strip(),
         color = form.color.data.strip(),
         license_plate=form.license_plate.data.strip(),
@@ -267,8 +260,8 @@ def edit_parkers(id):
   if form.validate_on_submit():
     parker.name = form.name.data
     parker.email = form.email.data
-    vehicle.make = form.make.data
-    vehicle.year = form.year.data
+    vehicle.year = form.year.data    
+    vehicle.make = form.make.data 
     vehicle.model = form.model.data
     vehicle.color = form.color.data
     vehicle.license_plate = form.license_plate.data
@@ -333,8 +326,8 @@ def add_vehicle(id):
   if form.validate_on_submit():
     models.Vehicle.create(
       parker_id=id,
+      year=form.year.data.strip(),      
       make=form.make.data.strip(), 
-      year=form.year.data.strip(),
       model=form.model.data.strip(),
       color=form.color.data.strip(),
       license_plate=form.license_plate.data.strip(),
@@ -351,8 +344,8 @@ def edit_vehicles(id):
   vehicle_param = int(id)
   vehicle = models.Vehicle.get(models.Vehicle.id == vehicle_param)
   if form.validate_on_submit():
-    vehicle.make = form.make.data
     vehicle.year = form.year.data
+    vehicle.make = form.make.data
     vehicle.model = form.model.data
     vehicle.color = form.color.data
     vehicle.license_plate = form.license_plate.data

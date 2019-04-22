@@ -9,35 +9,35 @@
       {{ form.hidden_tag() }} 
       <div class="field">
       {{ form.name.label(class_="label")}}
-      {{ form.name(class_="input", placeholder=parker.name, id="parkerName")}}
+      {{ form.name(class_="input", placeholder=parker.name, value=parker.name, id="parkerName")}}
       </div>
       <div class="field">
       {{ form.email.label(class_="label") }}
-      {{ form.email(class_="input", placeholder=parker.email, id="parkerEmail")}}
+      {{ form.email(class_="input", placeholder=parker.email, value=parker.email, id="parkerEmail")}}
+      </div>
+      <div class="field">
+        {{ form.year.label(class_="label") }}
+        {{ form.year(class_="input", placeholder=vehicle.year, value=vehicle.year,  id="parkerYear")}}
       </div>
       <div class="field">
       {{ form.make.label(class_="label") }}
-      {{ form.make(class_="input", placeholder=vehicle.make, id="parkerMake")}}
-      </div>
-      <div class="field">
-      {{ form.year.label(class_="label") }}
-      {{ form.year(class_="input", placeholder=vehicle.year, id="parkerYear")}}
+      {{ form.make(class_="input", placeholder=vehicle.make,  value=vehicle.make, id="parkerMake")}}
       </div>
       <div class="field">
       {{ form.model.label(class_="label") }}
-      {{ form.model(class_="input", placeholder=vehicle.model, id="parkerModel")}}
+      {{ form.model(class_="input", placeholder=vehicle.model,  value=vehicle.model, id="parkerModel")}}
       </div>
       <div class="field">
       {{ form.color.label(class_="label") }}
-      {{ form.color(class_="input", placeholder=vehicle.color, id="parkerColor")}}
+      {{ form.color(class_="input", placeholder=vehicle.color, value=vehicle.color,  id="parkerColor")}}
       </div>
       <div class="field">
       {{ form.license_plate.label(class_="label") }}
-      {{ form.license_plate(class_="input", placeholder=vehicle.license_plate, id="parkerLicensePlate")}}
+      {{ form.license_plate(class_="input", placeholder=vehicle.license_plate, value=vehicle.license_plate,  id="parkerLicensePlate")}}
       </div>
       <div class="field">
       {{ form.license_state.label(class_="label") }}
-      {{ form.license_state(class_="input", placeholder=vehicle.license_state, id="parkerLicenseState")}}
+      {{ form.license_state(class_="input", placeholder=vehicle.license_state, value=vehicle.license_state,  id="parkerLicenseState")}}
       </div>
       <div class="row">
           <button class="ui button" type="submit" id="submit"><b>Save</b></button>
