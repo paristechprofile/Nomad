@@ -44,7 +44,7 @@ psycopg2==2.7.7
 psycopg2-binary==2.7.7
 ptyprocess==0.6.0
 pycparser==2.19
-Pygments==2.3.1
+Pygments==2.7.4
 pylint==2.3.1
 python-dotenv==0.10.1
 PyYAML==5.1
