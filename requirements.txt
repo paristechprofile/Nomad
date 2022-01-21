@@ -23,7 +23,7 @@ gitdb2==2.0.5
 GitPython==2.1.11
 gunicorn==19.9.0
 idna==2.8
-ipython==7.3.0
+ipython==7.16.3
 ipython-genutils==0.2.0
 isort==4.3.15
 itsdangerous==1.1.0
